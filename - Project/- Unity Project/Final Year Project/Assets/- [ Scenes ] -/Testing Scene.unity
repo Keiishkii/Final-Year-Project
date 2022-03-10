@@ -246,9 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 616305645}
-  - component: {fileID: 616305646}
   - component: {fileID: 616305647}
-  - component: {fileID: 616305648}
   m_Layer: 0
   m_Name: Test
   m_TagString: Untagged
@@ -270,18 +268,6 @@ Transform:
   m_Father: {fileID: 921599497}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &616305646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 616305644}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7193cd2f107755a4cbe0b715ddacbd8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &616305647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,20 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ddebc3f1fde0d4d94e2c87abc5756e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pythonCode: "import UnityEngine\n\noutput = \"hello\"\nif 8 < 5:\n\toutput = \"boo\"\nelse:\n\toutput
-    = \"ahh\"\n\nUnityEngine.Debug.Log(\"Hello World: \" + output)"
---- !u!114 &616305648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 616305644}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ea0c386ff849cd4193fe38ffa7cf01a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _pythonCode: "output = \"hello\"\nif 8 < 5:\n\toutput = \"boo\"\nelse:\n\toutput
+    = \"ahh\""
 --- !u!1 &676990215
 GameObject:
   m_ObjectHideFlags: 0

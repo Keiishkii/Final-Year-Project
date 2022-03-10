@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Python_Test : MonoBehaviour
 {
-    private readonly ScriptEngine _pythonEngine = UnityPython.CreateEngine();
+    private readonly ScriptEngine _pythonEngine = Python.CreateEngine();
     
     [SerializeField] [TextArea(2, 20)] private string _pythonCode;
 
@@ -21,6 +21,9 @@ public class Python_Test : MonoBehaviour
         try
         {
             source.Execute(scope);
+            string output = scope.GetVariable<string>("output");
+            
+            Debug.Log(output);
         }
         catch (Exception e)
         {
