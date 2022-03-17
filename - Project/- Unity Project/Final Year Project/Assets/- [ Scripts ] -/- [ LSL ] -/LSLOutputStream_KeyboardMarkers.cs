@@ -9,6 +9,7 @@ public class LSLOutputStream_KeyboardMarkers : LSLOutput<string>
     private void Start()
     {
         StreamInfo streamInfo = new StreamInfo(_streamName, _streamType, 1, 0, channel_format_t.cf_string);
+        
         XMLElement channels = streamInfo.desc().append_child("channels");
             channels.append_child("channel").append_child_value("label", "Marker");
         
