@@ -6,11 +6,11 @@ using LSL;
 
 public class LSLOutputStream_KeyboardMarkers : LSLOutput<string>
 {
-    void Start()
+    private void Start()
     {
         StreamInfo streamInfo = new StreamInfo(_streamName, _streamType, 1, 0, channel_format_t.cf_string);
         XMLElement channels = streamInfo.desc().append_child("channels");
-        channels.append_child("channel").append_child_value("label", "Marker");
+            channels.append_child("channel").append_child_value("label", "Marker");
         
         _outlet = new StreamOutlet(streamInfo);
         _currentSample = new string[1];
@@ -24,17 +24,17 @@ public class LSLOutputStream_KeyboardMarkers : LSLOutput<string>
             {
                 if (Input.GetKey(keyCode))
                 {
-                    WriteMarker($"{keyCode}");
+                    _currentSample[0] = $"{keyCode}";
+                    PushOutput();
                 }
             }
         }
     }
 
-    private void WriteMarker(string marker)
+    
+    
+    protected override void PushOutput()
     {
-        _currentSample[0] = marker;
         _outlet.push_sample(_currentSample);
-        
-        Debug.Log($"KeyCode down: {marker}");
     }
 }

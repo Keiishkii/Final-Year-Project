@@ -1,4 +1,4 @@
-enum LSLStreamLookup
+public enum LSLStreamLookup
 {
     NAME,
     TYPE

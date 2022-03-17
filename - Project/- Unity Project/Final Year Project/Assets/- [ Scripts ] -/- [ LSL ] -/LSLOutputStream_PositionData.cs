@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LSLOutputStream_PositionData : LSLOutput<float>
 {
-    void Start()
+    private void Start()
     {
         float sampleRate = (1 / Time.fixedDeltaTime);
         
@@ -19,13 +19,20 @@ public class LSLOutputStream_PositionData : LSLOutput<float>
         _currentSample = new float[3];
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Vector3 pos = gameObject.transform.position;
             _currentSample[0] = pos.x;
             _currentSample[1] = pos.y;
             _currentSample[2] = pos.z;
         
+        PushOutput();
+    }
+
+    
+    
+    protected override void PushOutput()
+    {
         _outlet.push_sample(_currentSample);
     }
 }
