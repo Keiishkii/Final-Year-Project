@@ -1,0 +1,145 @@
+\begin{thebibliography}{10}
+
+\bibitem{sivanathan2014temporal}
+{\em Temporal multimodal data synchronisation for the analysis of a game
+  driving task using EEG}, volume~5. Elsevier, 2014.
+
+\bibitem{ahn2011using}
+Jae-Sung Ahn and Won-Hyung Lee.
+\newblock Using eeg pattern analysis for implementation of game interface.
+\newblock In {\em 2011 IEEE 15th international symposium on consumer
+  electronics (ISCE)}, pages 348--351. IEEE, 2011.
+
+\bibitem{alchalcabi2017more}
+Alaa~Eddin Alchalcabi, Amer~Nour Eddin, and Shervin Shirmohammadi.
+\newblock More attention, less deficit: Wearable eeg-based serious game for
+  focus improvement.
+\newblock In {\em 2017 IEEE 5th international conference on serious games and
+  applications for health (SeGAH)}, pages 1--8. IEEE, 2017.
+
+\bibitem{alvarez2011introduction}
+Julian Alvarez, Damien Djaouti, et~al.
+\newblock An introduction to serious game definitions and concepts.
+\newblock {\em Serious Games \& Simulation for Risks Management}, 11(1):11--15,
+  2011.
+
+\bibitem{bessa2020designing}
+Diogo Bessa, Nuno~F Rodrigues, Eva Oliveira, Jonas Kolbenschag, and Cosima
+  Prahm.
+\newblock Designing a serious game for myoelectric prosthesis control.
+\newblock In {\em 2020 IEEE 8th International Conference on Serious Games and
+  Applications for Health (SeGAH)}, pages 1--5. IEEE, 2020.
+
+\bibitem{da2014multimodal}
+Gon{\c{c}}alo~Amaral da~Silva.
+\newblock Multimodal vs. unimodal physiological control in videogames for
+  enhanced realism and depth.
+\newblock {\em arXiv preprint arXiv:1406.0532}, 2014.
+
+\bibitem{ghassemi2019development}
+Mohammad Ghassemi, Kristen Triandafilou, Alex Barry, Mary~Ellen Stoykov, Elliot
+  Roth, Ferdinando~A Mussa-Ivaldi, Derek~G Kamper, and Rajiv Ranganathan.
+\newblock Development of an emg-controlled serious game for rehabilitation.
+\newblock {\em IEEE Transactions on Neural Systems and Rehabilitation
+  Engineering}, 27(2):283--292, 2019.
+
+\bibitem{gutierrez2020serious}
+Alvaro Gutierrez, Delia Sepulveda-Munoz, Angel Gil-Agudo, and Ana de~los
+  Reyes~Guzman.
+\newblock Serious game platform with haptic feedback and emg monitoring for
+  upper limb rehabilitation and smoothness quantification on spinal cord injury
+  patients.
+\newblock {\em Applied Sciences}, 10(3):963, 2020.
+
+\bibitem{labruyere2013requirements}
+Rob Labruy{\`e}re, Corinna~N Gerber, Karin Birrer-Br{\"u}tsch, Andreas
+  Meyer-Heim, and Hubertus~JA van Hedel.
+\newblock Requirements for and impact of a serious game for neuro-pediatric
+  robot-assisted gait training.
+\newblock {\em Research in developmental disabilities}, 34(11):3906--3915,
+  2013.
+
+\bibitem{liarokapis2014comparing}
+Fotis Liarokapis, Kurt Debattista, Athanasios Vourvopoulos, Panagiotis
+  Petridis, and Alina Ene.
+\newblock Comparing interaction techniques for serious games through
+  brain--computer interfaces: A user perception evaluation study.
+\newblock {\em Entertainment Computing}, 5(4):391--399, 2014.
+
+\bibitem{liarokapis2015examining}
+Fotis Liarokapis, Athanasios Vourvopoulos, and Alina Ene.
+\newblock Examining user experiences through a multimodal bci puzzle game.
+\newblock In {\em 2015 19th International Conference on Information
+  Visualisation}, pages 488--493. IEEE, 2015.
+
+\bibitem{6518141}
+David Marshall, Damien Coyle, Shane Wilson, and Michael Callaghan.
+\newblock Games, gameplay, and bci: The state of the art.
+\newblock {\em IEEE Transactions on Computational Intelligence and AI in
+  Games}, 5(2):82--99, 2013.
+
+\bibitem{muguro2020development}
+Joseph~Kamau Muguro, Minoru Sasaki, Kojiro Matsushita, Waweru Njeri,
+  Pringgo~Widyo Laksono, and Muhammad Syaiful Amri~bin Suhaimi.
+\newblock Development of neck surface electromyography gaming control interface
+  for application in tetraplegic patients’ entertainment.
+\newblock In {\em AIP Conference Proceedings}, volume 2217, page 030039. AIP
+  Publishing LLC, 2020.
+
+\bibitem{ndulue2019driving}
+Chinenye Ndulue and Rita Orji.
+\newblock Driving persuasive games with personal eeg devices: Strengths and
+  weaknesses.
+\newblock In {\em Adjunct Publication of the 27th Conference on User Modeling,
+  Adaptation and Personalization}, pages 173--177, 2019.
+
+\bibitem{thelegendofzelda_majorasmask}
+Nintendo.
+\newblock The legend of zelda: Majora's mask.
+\newblock [Nintendo 64], 2000.
+
+\bibitem{thelegendofzelda_spirittracks}
+Nintendo.
+\newblock The legend of zelda: Spirit tracks.
+\newblock [Nintedo DS], 2009.
+
+\bibitem{rashid2020current}
+Mamunur Rashid, Norizam Sulaiman, Anwar PP~Abdul~Majeed, Rabiu~Muazu Musa,
+  Bifta~Sama Bari, Sabira Khatun, et~al.
+\newblock Current status, challenges, and possible solutions of eeg-based
+  brain-computer interface: a comprehensive review.
+\newblock {\em Frontiers in neurorobotics}, page~25, 2020.
+
+\bibitem{schonauer2011full}
+Christian Sch{\"o}nauer, Thomas Pintaric, and Hannes Kaufmann.
+\newblock Full body interaction for serious games in motor rehabilitation.
+\newblock In {\em Proceedings of the 2nd Augmented Human International
+  Conference}, pages 1--8, 2011.
+
+\bibitem{schuurink2008engagement}
+Ellen~Lisette Schuurink, Joske Houtkamp, and Alexander Toet.
+\newblock Engagement and emg in serious gaming: Experimenting with sound and
+  dynamics in the levee patroller training game.
+\newblock In {\em International Conference on Fun and Games}, pages 139--149.
+  Springer, 2008.
+
+\bibitem{tarnanas2015comparison}
+Ioannis Tarnanas, Nikos Laskaris, Magda Tsolaki, Ren{\'e} Muri, Tobias Nef, and
+  Urs~P Mosimann.
+\newblock On the comparison of a novel serious game and electroencephalography
+  biomarkers for early dementia screening.
+\newblock In {\em GeNeDis 2014}, pages 63--77. Springer, 2015.
+
+\bibitem{toktacs2019evaluation}
+Ali~Osman Tokta{\c{s}} and Tacha Serif.
+\newblock {\em Evaluation of crosshair-aided gyroscope gamepad controller},
+  pages 294--307.
+\newblock 2019.
+
+\bibitem{vourvopoulos2013brain}
+Athanasios Vourvopoulos.
+\newblock Brain-controlled virtual environments-an evaluation study of
+  brain-computer interfaces for serious game interaction.
+\newblock 2013.
+
+\end{thebibliography}

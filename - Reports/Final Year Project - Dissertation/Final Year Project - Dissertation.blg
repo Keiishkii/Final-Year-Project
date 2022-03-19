@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Final Year Project - Dissertation.aux
+Reallocating 'name_of_file' (item size: 1) to 6 items.
+The style file: plain.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: references.bib
+Warning--to sort, need editor, organization, or key in sivanathan2014temporal
+Warning--empty publisher in toktacs2019evaluation
+Warning--empty note in vourvopoulos2013brain
+You've used 22 entries,
+            2118 wiz_defined-function locations,
+            622 strings with 9150 characters,
+and the built_in function-call counts, 8669 in all, are:
+= -- 861
+> -- 435
+< -- 13
++ -- 175
+- -- 150
+* -- 594
+:= -- 1375
+add.period$ -- 72
+call.type$ -- 22
+change.case$ -- 137
+chr.to.int$ -- 0
+cite$ -- 25
+duplicate$ -- 343
+empty$ -- 654
+format.name$ -- 150
+if$ -- 1874
+int.to.chr$ -- 0
+int.to.str$ -- 22
+missing$ -- 19
+newline$ -- 111
+num.names$ -- 42
+pop$ -- 168
+preamble$ -- 1
+purify$ -- 117
+quote$ -- 0
+skip$ -- 259
+stack$ -- 0
+substring$ -- 485
+swap$ -- 116
+text.length$ -- 13
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 85
+warning$ -- 3
+while$ -- 81
+width$ -- 24
+write$ -- 243
+(There were 3 warnings)
