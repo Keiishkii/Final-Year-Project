@@ -39,9 +39,8 @@ public class Barracuda_XORModel_Editor : Editor
             EditorGUILayout.Space(5);
             if (GUILayout.Button("Calculate"))
             {
+                targetScript.SetupModel();
                 List<float> inputFloats = new List<float> {_inputA, _inputB};
-
-                int channelCount = 1;
             
                 Tensor inputTensor = new Tensor(1, 1, 1, 2, inputFloats.ToArray());
                 Tensor outputTensor = targetScript.worker.Execute(inputTensor).PeekOutput();
@@ -51,6 +50,7 @@ public class Barracuda_XORModel_Editor : Editor
                 
                 inputTensor.Dispose();
                 outputTensor.Dispose();
+                targetScript.worker?.Dispose();
             }
             EditorGUILayout.Space(5);
             

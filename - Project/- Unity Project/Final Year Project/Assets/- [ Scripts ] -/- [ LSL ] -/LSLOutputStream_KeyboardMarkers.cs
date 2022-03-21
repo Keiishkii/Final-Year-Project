@@ -19,17 +19,7 @@ public class LSLOutputStream_KeyboardMarkers : LSLOutput<string>
 
     private void Update()
     {
-        if (Input.anyKeyDown)
-        {
-            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
-            {
-                if (Input.GetKey(keyCode))
-                {
-                    _currentSample[0] = $"{keyCode}";
-                    PushOutput();
-                }
-            }
-        }
+        
     }
 
     

@@ -19,18 +19,7 @@ public class LSLOutputStream_StartAndStop : LSLOutput<int>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode. Alpha1))
-        {
-            Debug.Log("Start");
-            _currentSample[0] = 254;
-            PushOutput();
-        }
-        else if (Input.GetKeyDown(KeyCode. Alpha0))
-        {
-            Debug.Log("Stop");
-            _currentSample[0] = 255;
-            PushOutput();
-        }
+        
     }
 
     

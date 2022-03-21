@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Barracuda_Model : MonoBehaviour
 {
-    [SerializeField] public NNModel model;
+    public NNModel model;
     private Model _runtimeModel;
     
     public IWorker worker;
@@ -11,7 +11,7 @@ public abstract class Barracuda_Model : MonoBehaviour
     
     
     
-    void Awake()
+    public void SetupModel()
     {
         _runtimeModel = ModelLoader.Load(model);
         worker = WorkerFactory.CreateWorker(_runtimeModel, WorkerFactory.Device.GPU);
