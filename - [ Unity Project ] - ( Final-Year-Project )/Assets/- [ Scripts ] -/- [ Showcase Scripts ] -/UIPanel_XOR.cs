@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Button = UnityEngine.UIElements.Button;
 
+using _Barracuda;
+
 public class UIPanel_XOR : MonoBehaviour
 {
     [SerializeField] private List<Image> _inputAImages;
@@ -29,9 +31,7 @@ public class UIPanel_XOR : MonoBehaviour
 
     private void Awake()
     {
-        _modelXOR = new Barracuda_XORModel();
-        _modelXOR.model = _model;
-        
+        _modelXOR = new Barracuda_Model { model = _model };
         _modelXOR.SetupModel();
         
         CalculateOutputState();

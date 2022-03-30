@@ -1,4 +1,9 @@
-public class Barracuda_XORModel : Barracuda_Model
+using UnityEngine;
+
+namespace _Barracuda
 {
-    public int hello;
+    public class Barracuda_XORModel : MonoBehaviour
+    {
+        public Barracuda_Model model;
+    }
 }

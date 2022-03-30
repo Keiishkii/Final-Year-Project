@@ -1,28 +1,33 @@
-﻿using Unity.Barracuda;
+﻿using System;
+using Unity.Barracuda;
 using UnityEngine;
 
-public abstract class Barracuda_Model : MonoBehaviour
+namespace _Barracuda
 {
-    public NNModel model;
-    private Model _runtimeModel;
-    
-    public IWorker worker;
-    public Prediction prediction;
-    
-    
-    
-    public void SetupModel()
+    [Serializable]
+    public class Barracuda_Model
     {
-        _runtimeModel = ModelLoader.Load(model);
-        worker = WorkerFactory.CreateWorker(_runtimeModel, WorkerFactory.Device.GPU);
+        public NNModel model;
+        private Model _runtimeModel;
 
-        prediction = new Prediction();
-    }
+        public IWorker worker;
+        public Prediction prediction;
 
-    
 
-    private void OnDestroy()
-    {
-        worker?.Dispose();
+
+        public void SetupModel()
+        {
+            _runtimeModel = ModelLoader.Load(model);
+            worker = WorkerFactory.CreateWorker(_runtimeModel, WorkerFactory.Device.GPU);
+
+            prediction = new Prediction();
+        }
+
+
+
+        private void OnDestroy()
+        {
+            worker?.Dispose();
+        }
     }
 }

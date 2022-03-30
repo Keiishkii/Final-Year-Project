@@ -3,36 +3,39 @@ using System.Collections.Generic;
 using LSL;
 using UnityEngine;
 
-public class LSLOutputStream_PositionData : LSLOutput<float>
+namespace _LSL
 {
-    private void Start()
+    public class LSLOutputStream_PositionData : LSLOutput<float>
     {
-        float sampleRate = (1 / Time.fixedDeltaTime);
-        
-        StreamInfo streamInfo = new StreamInfo(_streamName, _streamType, 3, sampleRate, channel_format_t.cf_float32);
-        XMLElement chans = streamInfo.desc().append_child("channels");
+        private void Start()
+        {
+            float sampleRate = (1 / Time.fixedDeltaTime);
+
+            StreamInfo streamInfo = new StreamInfo(_streamName, _streamType, 3, sampleRate, channel_format_t.cf_float32);
+            XMLElement chans = streamInfo.desc().append_child("channels");
             chans.append_child("channel").append_child_value("label", "X");
             chans.append_child("channel").append_child_value("label", "Y");
             chans.append_child("channel").append_child_value("label", "Z");
-        
-        _outlet = new StreamOutlet(streamInfo);
-        _currentSample = new float[3];
-    }
 
-    private void FixedUpdate()
-    {
-        Vector3 pos = gameObject.transform.position;
+            _outlet = new StreamOutlet(streamInfo);
+            _currentSample = new float[3];
+        }
+
+        private void FixedUpdate()
+        {
+            Vector3 pos = gameObject.transform.position;
             _currentSample[0] = pos.x;
             _currentSample[1] = pos.y;
             _currentSample[2] = pos.z;
-        
-        PushOutput();
-    }
 
-    
-    
-    protected override void PushOutput()
-    {
-        _outlet.push_sample(_currentSample);
+            PushOutput();
+        }
+
+
+
+        protected override void PushOutput()
+        {
+            _outlet.push_sample(_currentSample);
+        }
     }
 }

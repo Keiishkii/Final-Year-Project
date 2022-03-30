@@ -4,13 +4,16 @@ using UnityEngine;
 using LSL;
 using UnityEngine.InputSystem;
 
-public abstract class LSLOutput<T> : MonoBehaviour
+namespace _LSL
 {
-    [SerializeField] protected string _streamName = "A";
-    [SerializeField] protected string _streamType = "A";
-    
-    protected StreamOutlet _outlet;
-    protected T[] _currentSample;
+    public abstract class LSLOutput<T> : MonoBehaviour
+    {
+        [SerializeField] protected string _streamName = "A";
+        [SerializeField] protected string _streamType = "A";
 
-    protected abstract void PushOutput();
+        protected StreamOutlet _outlet;
+        protected T[] _currentSample;
+
+        protected abstract void PushOutput();
+    }
 }

@@ -1,5 +1,8 @@
-public enum LSLStreamLookup
+namespace _LSL
 {
-    NAME,
-    TYPE
+    public enum LSLStreamLookup
+    {
+        NAME,
+        TYPE
+    }
 }

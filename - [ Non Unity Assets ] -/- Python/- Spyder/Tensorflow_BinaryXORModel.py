@@ -3,7 +3,6 @@ from tensorflow import keras
 from tensorflow.python.keras.callbacks import TensorBoard
 from time import time
 import numpy
-import pandas
 
 #%%
 
