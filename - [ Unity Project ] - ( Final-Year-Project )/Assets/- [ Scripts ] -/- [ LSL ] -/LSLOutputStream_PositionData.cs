@@ -33,7 +33,7 @@ namespace _LSL
 
 
 
-        protected override void PushOutput()
+        private void PushOutput()
         {
             _outlet.push_sample(_currentSample);
         }

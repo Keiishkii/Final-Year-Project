@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace _Barracuda
 {
-        [Serializable]
         public struct Prediction
         {
                 private int _outputIndex;

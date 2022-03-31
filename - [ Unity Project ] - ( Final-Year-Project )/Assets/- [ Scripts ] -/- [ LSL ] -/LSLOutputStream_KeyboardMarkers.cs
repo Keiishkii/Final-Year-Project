@@ -41,7 +41,7 @@ namespace _LSL
         }
 
 
-        protected override void PushOutput()
+        private void PushOutput()
         {
             _currentSample[0] = "Hello";
 

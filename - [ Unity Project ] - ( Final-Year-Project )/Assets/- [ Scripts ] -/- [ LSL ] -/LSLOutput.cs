@@ -13,7 +13,5 @@ namespace _LSL
 
         protected StreamOutlet _outlet;
         protected T[] _currentSample;
-
-        protected abstract void PushOutput();
     }
 }
