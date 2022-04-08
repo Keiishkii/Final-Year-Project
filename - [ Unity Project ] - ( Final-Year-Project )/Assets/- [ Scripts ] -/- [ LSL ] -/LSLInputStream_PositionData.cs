@@ -28,13 +28,11 @@ namespace _LSL
                     case LSLStreamLookup.NAME:
                     {
                         _streamInfos = LSL.LSL.resolve_stream("name", _streamName, 1, 0);
-                    }
-                        break;
+                    } break;
                     case LSLStreamLookup.TYPE:
                     {
                         _streamInfos = LSL.LSL.resolve_stream("type", _streamType, 1, 0);
-                    }
-                        break;
+                    } break;
                 }
 
                 if (_streamInfos.Length > 0)
