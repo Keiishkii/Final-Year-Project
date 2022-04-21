@@ -2,6 +2,18 @@ from tensorflow.python.keras.models import load_model
 import onnx
 import keras2onnx
 
+#%%########################
+#   - Clear Console -     #
+###########################
+print("\033[H\033[J") 
+
+
+
+
+
+#%%###########################
+#   - Global Variables -     #
+##############################
 modelName = "MotorImageryModel"
 
 

@@ -1,0 +1,108 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, width = 150 mm, top = 25 mm, bottom = 25 mm]{geometry}
+\usepackage{amsfonts}
+\usepackage{titlesec}
+\usepackage{color}
+\usepackage[backend=biber, citestyle=authoryear, sorting=nyt]{biblatex}\addbibresource{references.bib}
+
+
+\title{Controlling Player Avatars in Game Worlds using Multi-Modal Input Systems}
+\author{Charlie Lloyd-Buckingham}
+\date{\today}
+
+%\newcommand{\citationneeded}{	\textcolor{red}{[Citation Need]}}
+\newcommand{\ccite}[1]{(\citeauthor{#1}, \citeyear{#1})}
+\newcommand{\cciteyear}[1]{(\citeyear{#1})}
+\newcommand{\cciteauthor}[1]{(\citeauthor{#1})}
+
+\begin{document}
+
+% Controlling Player Avatars in Game Worlds using Multi-Modal Input Systems
+\maketitle
+
+
+
+\pagebreak
+\section{Acknowledgements}	
+This is my acknowledgements.
+
+\section{Abstract}	
+My project is about....
+
+
+
+\pagebreak
+\tableofcontents				% - 300 Words
+
+
+
+% Introducition and Context, Including Aim's and Objectives
+\pagebreak
+\section{Introduction}	
+\subsection{Context}
+Throughout the history of the games industry, game makers have been exploring new ways to deliver their players unique experiences. This has come in the forms of the narrative decisions within a game's story, stylistic decisions through the game's art and, as a focus for this paper, the interaction systems designed around the player's influence within a game's world. 
+
+\hfill
+
+On account of the digital nature of video games, as technology has evolved over the years, so too has the hardware and methods of interaction used within gaming consoles. Beginning in 1972 with the creation of the first home console, the Magnavox Odyssey, over the following years, video game console manufactures have continued to push the perceived boundaries of interactive entertainment. In 2006, Nintendo demonstrated the potential of a motion controlled input system with the Wii. Following this, other manufactures also began to expand into the technology, with Microsoft developing the Xbox Kinect and Sony the PlayStation Move. Nowadays, companies like Oculus and the HTC corporation are exploring the market of consumer virtual reality headsets with the Quest and Vive, while Nintendo is showing off new ways of using old technology with their Labo Toycon games. All of this has demonstrated that with the market's continued interest in new experiences, console manufactures and game developers will continue innovating new methods of interaction for their players.
+
+\subsection{Research Problem}
+There has also been a growing interest in the usage of electroencephalographic (EEG) and electromyographic (EMG) techniques being coupled with game engines for the purpose of research. The use of games in research has been invaluable for decades, due to the control gained over how a subject is stimulated throughout an experiment's lifetime. The act of reversing this dynamic and using these systems for the purpose of entertainment has also been explored \ccite{6518141}, however there is yet be any product viable for consumers to play. 
+
+\subsection{Project Aims}
+It is with this in mind, that this paper proposes to continue with the investigation into the viability of EEG, EMG, and other additional input modalities within video games. By acquiring data from all devices and combining them, the aim is for the creation of a single system capable of attaining and extracting meaningful interactions from it's users for control over aspects of game world. Along side this, two example games will also be constructed, these will be used to verify if the system is capable of performing it's tasks correctly and potentially demonstrate a working example from within a use-case environment.
+
+\subsection{Project Objectives}
+To get this system working, data from each device will need to be accessed live and streamed into the Unity game engine where a pre-trained artificial neural network (ANN) will be used to decipher a meaning suitable for the given game. From this the two games will be developed: the first will have the player use motor imagery to control the limbs of a virtual avatar; the second game will use the system measure the users state of mind, allowing for adaptive difficulty depending on the focus of the player.
+
+% Review of Literature and / or Proffesional Practices
+\pagebreak
+\section{Research}	
+\subsection{Literature Review}	% - 2000 Words
+The usage of multi-modal input systems is not unheard of, almost all modern first person console shooters use the input controller's built in gyroscope, in addition to the right joystick to control the direction of the players camera. This multi-input system allows much more finesse when aiming, resulting in the players having a more enjoyable experience \ccite{toktacs2019evaluation}. In the work put forward by Silva and Amaral \cciteyear{da2014multimodal}, they demonstrate that the inclusion of a multi-modal input system compared to a uni-modal input system can make video games perceivably more enjoyable, ``it can be used to increase the feeling of empowerment on the player when using certain abilities, or to intentionally make in-game actions more difficult by demanding more physical effort from the player''. Though gyroscopic-assisted aiming is a more recent phenomenon, the concept of incorporating multiple input systems for singular interactions within gaming has been around for a while. Even back in 2009 with the release of `The Legend of Zelda: Spirit Tracks' \ccite{thelegendofzelda_spirittracks}, when using the flute, players would be required to both blow into the DS microphone and use the touch screen to play specific tones. This interaction could have very easily be performed by mapping tones to regions on the touch screen, or pairing each tone to a button on the Nintendo DS, much like how previous instruments in the franchise have been implemented, E.g. `The Legend of Zelda: Majoras Mask' \ccite{thelegendofzelda_majorasmask}. However, as stated by Silva, players could have a ``feeling of empowerment'' overcoming the set-pieces Nintendo designed, through this added multi-modal challenge.
+
+\hfill
+
+Before looking into EEG as a part of a larger multi-modal input system, a focus on how it has been used on its own within video gaming will be explored. Games using EEG most commonly occur in the form of serious games, defined by Alvarez and colleagues \cciteyear{alvarez2011introduction} as a video game that is ``intended to depart from the simple entertainment''. This refers to games built for research, education and rehabilitation. Whether this is just for providing an environment for the comparison between different electroencephalographs \ccite{liarokapis2014comparing}, evaluating a participant's emotions and satisfaction \ccite{vourvopoulos2013brain}, screening for early signs of mental illness \ccite{tarnanas2015comparison}, or cognitive rehabilitation \ccite{alchalcabi2017more}. 
+
+The data captured from EEG can be used in a multitude of ways, depending on what is considered important for a given experiment. By using games it is then possible to focus on these targeted aspects of EEG: allowing for the invocation of responses necessary for measuring event related potentials \ccite{ahn2011using}, or to provide a real-time environment capable of demonstrating the changes in mental states \ccite{liarokapis2015examining} and motor-imagery \ccite{ndulue2019driving}. 
+
+However, it is debated whether EEG technology is still in it's infancy. When investigating the current state of brain computer interfaces (BCIs) usability in the context of information transfer rates (ITR), Rashid and colleagues \cciteyear{rashid2020current} write ``In spite of the many outstanding breakthroughs that have been achieved in BCI research, some issues still need to be resolved... the existing BCIs offer somewhat poor ITR for any type of effectual BCI application'', while in Cattan's \cciteyear{cattan2021use} comparison, they state ``In practice, this means that BCIs are unusable in traditional inputs, such as in keyboards or mice''. To the contrary, EEG technology has already been used within for video games as an interactive medium: from modifying a game's difficulty based on the focus of the player with Tetris \ccite{liarokapis2015examining}; walking around the streets of Ancient Rome using motor-imagery in Rome Reborn \ccite{ndulue2019driving}; to piloting a space ship in Rock Evaders \ccite{ndulue2019driving}. EEG has shown its potential as a possible use for video game control.
+
+\hfill
+
+The usage of EMG within video games has also been quite extensive. EMG based serious games have permitted the research of various topics, from measuring arousal to stimuli using the muscles in the face \ccite{schuurink2008engagement}, to the effectiveness of myoelectric prosthesis training \ccite{bessa2020designing}. While their use outside of research has aided in the rehabilitation of patients, suffering: post injury \ccite{gutierrez2020serious} \ccite{schonauer2011full}; strokes \ccite{ghassemi2019development} and other medical disorders \ccite{labruyere2013requirements}. Though much more infrequent, entertainment focused EMG games do exist. In large part with they goal for allowing people with motor impairments to have the opportunities to play games, Kamau-Mugro \cciteyear{muguro2020development} states ``focusing on neck EMG, would give more control to individuals with hand disabilities or SCI patient as a control scheme or an entertainment interface''.
+
+\hfill
+  
+Having investigated the viability of EEG and EMG as uni-modal input systems, an exploration into their combined usage alongside other additional input modalities can be performed. Though the appearance of entertainment based multi-modal EEG and EMG systems are infrequent, multi-modal serious games using EEG and EMG are a lot more common. An example of which is Sivanathans \cciteyear{sivanathan2014temporal} work on multi-modal EEG analysis, in which data from in-game events was coupled with the EEG input streams to allow for a greater understanding of the results. Though there isn't many instances of multi-modal EEG and EMG based video game systems, that isn't to say inspiration for these systems cannot come from elsewhere, the majority of research in which multi-modal EEG and EMG systems have been built for is in the development of consumer prosthetics \ccite{shi2019novel} and wheelchair controllers \ccite{carlson2013brain}. These systems pull from the data streams of EEG and EMG and by using eye-tracking, computer vision and inverse kinematics \ccite{mcmullen2013demonstration} are able to allow for finer control over hardware systems that on their own EEG and EMG wouldn't be able. By adopting a similar approach, these real world solutions can be used with virtual controllers instead. 
+
+
+\pagebreak
+\section{Methodology and Process}			% - 3100 Words
+
+\begin{itemize}
+  \item Setup of Unity enviroment for VR.
+  \item LSL streams used for aquiring and writing data.
+  \item Offline processing and spoofing "online data" (reading CSV files) and writing the data over the LSL network.
+  \item I began by using python - (tensor flow, keras) - to classify EEG data using motor imagery to decide between a left and right motion.
+  \item To get a more accurate network I looked into KerasTuner, a hyper peramiter libuary for Keras.
+\end{itemize}
+
+
+\pagebreak
+\section{Conclusion and Future Work}
+
+\subsection{Conclusion}
+
+\subsection{Future Work}			% - 300 Words
+
+
+
+		% - 300 Words
+
+\pagebreak
+\printbibliography
+
+\end{document}

@@ -2,7 +2,21 @@ import pyedflib
 import csv
 import numpy
 
-path = "D:\My Data\EEG Data\S001R14"
+#%%########################
+#   - Clear Console -     #
+###########################
+print("\033[H\033[J") 
+
+
+
+
+
+#%%###########################
+#   - Global Variables -     #
+##############################
+inputDataPath = "D:\My Data\EEG Data\EDF files\\"
+outputDataPath = "D:\My Data\EEG Data\CSV files\\"
+dataFileName = "S004R12"
 
 
 
@@ -13,7 +27,7 @@ path = "D:\My Data\EEG Data\S001R14"
 ##########################
 print("\n - Reading in the file. \n")
 
-reader = pyedflib.EdfReader(path + ".edf")
+reader = pyedflib.EdfReader(inputDataPath + dataFileName + ".edf")
 
 
 
@@ -70,7 +84,7 @@ for i in range(len(transposedData)):
 ############################
 print("\n - Writing EEG data to CSV. \n")
 
-csvFile = open(path + ".csv", "w", newline = '')
+csvFile = open(outputDataPath + dataFileName + ".csv", "w", newline = '')
 
 writer = csv.writer(csvFile)
 writer.writerow(signalLabels)
@@ -81,7 +95,7 @@ for i in transposedData:
 
 
 print("\n - Writing EEG markers to CSV. \n")
-csvFile = open(path + "_Markers.csv", "w", newline = '')
+csvFile = open(outputDataPath + dataFileName + "_Markers.csv", "w", newline = '')
 
 writer = csv.writer(csvFile)
 writer.writerow(["Markers"])
