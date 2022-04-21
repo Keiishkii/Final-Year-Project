@@ -13,14 +13,18 @@ from tqdm import tqdm
 ###########################
 print("\033[H\033[J") 
 
+print(tensorflow.version.VERSION)
+print(tensorflow.test.is_built_with_cuda())
+print("Num GPUs Available: ", len(tensorflow.config.list_physical_devices('GPU')))
 
+#tensorflow.debugging.set_log_device_placement(True)
 
 
 
 #%%###########################
 #   - Global Variables -     #
 ##############################
-trainingDataPath = "D:\My Data\EEG Data\CSV files\\"
+trainingDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
 trainingDataFileNames = [
     "S001R04",
     "S001R08",
@@ -36,7 +40,7 @@ trainingDataFileNames = [
     #"S004R12",
     ]
 
-validationDataPath = "D:\My Data\EEG Data\CSV files\\"
+validationDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
 validationDataFileNames = [
     #"S001R04",
     #"S001R08",
@@ -52,6 +56,8 @@ validationDataFileNames = [
     #"S004R12",
     ]
 
+modelSavingDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Keras Models ] -\\"
+modelSavingName = "Motor Imagery Model"
 
 
 
@@ -198,6 +204,8 @@ tuner = keras_tuner.BayesianOptimization(
      #tune_new_entries = (True),
      #allow_new_entries = (True),
      
+     #distribution_strategy = tensorflow.distribute.MirroredStrategy(),
+     
      directory = 'Model_Generation',
      project_name = 'Motor_Imagery_Classification',
      overwrite = True
@@ -206,27 +214,13 @@ tuner = keras_tuner.BayesianOptimization(
 tuner.search(    
     trainingDataList, 
     encodedTrainingMarkerList, 
-    epochs = 35, 
+    epochs = 5, 
     validation_data = (validationDataList, encodedValidationMarkerList),
     callbacks = [tensorflow.keras.callbacks.EarlyStopping('val_loss', patience=3)]
 )
 
 model = tuner.get_best_models()[0]
 model.summary()
-
-#model = keras.Sequential([
-#    keras.layers.Flatten(input_shape=(64,)),
-#    keras.layers.Dense(units=200, activation=("relu")),
-#    keras.layers.Dense(units=60, activation=("relu")),
-#    keras.layers.Dense(units=12, activation=("relu")),
-#    keras.layers.Dense(units=3, activation=("sigmoid"))
-#    ])
-
-#model.compile(loss = keras.losses.SparseCategoricalCrossentropy(), optimizer = tensorflow.optimizers.Adam(), metrics=['accuracy'])
-
-#model.fit(fullDataArray, markerIDArray, epochs=25)
-#model.summary()
-
 
 
 
@@ -236,7 +230,5 @@ model.summary()
 ################################
 print("\n - Saving the tensorflow model. \n")
 
-modelName = "MotorImageryModel"
-
-model.save('D:\My Data\Tensorflow Models\\' + modelName + '.h5')
-print("Data saved to 'D:\My Data\Tensorflow Models\\" + modelName + ".h5'")
+model.save(f"{modelSavingDataPath}{modelSavingName}.h5")
+print(f"Data saved to '{modelSavingDataPath}{modelSavingName}.h5'")

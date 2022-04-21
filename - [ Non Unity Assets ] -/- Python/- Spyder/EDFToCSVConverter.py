@@ -14,9 +14,21 @@ print("\033[H\033[J")
 #%%###########################
 #   - Global Variables -     #
 ##############################
-inputDataPath = "D:\My Data\EEG Data\EDF files\\"
-outputDataPath = "D:\My Data\EEG Data\CSV files\\"
-dataFileName = "S004R12"
+inputDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ EDF Files ] -\\"
+outputDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
+
+#dataFileName = "S001R04"
+#dataFileName = "S001R08"
+#dataFileName = "S001R12"
+#dataFileName = "S002R04"
+#dataFileName = "S002R08"
+#dataFileName = "S002R12"
+#dataFileName = "S003R04"
+#dataFileName = "S003R08"
+#dataFileName = "S003R12"
+#dataFileName = "S004R04"
+dataFileName = "S004R08"
+#dataFileName = "S004R12"
 
 
 
