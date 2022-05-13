@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿/*
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -155,4 +156,4 @@ public class ReadmeEditor : Editor {
 		return GUI.Button (position, label, LinkStyle);
 	}
 }
-
+*/

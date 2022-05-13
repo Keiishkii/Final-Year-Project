@@ -4,7 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/- [ Scenes ] -/Main Scene.unity
+    guid: cbeaddf86e4294f4891172a96cb1e595
+  - enabled: 1
+    path: Assets/- [ Scenes ] -/[ Sub Scenes ]/Menu.unity
+    guid: 5ebe29789c8a32d4ba6498406d79ab04
+  - enabled: 1
+    path: Assets/- [ Scenes ] -/[ Sub Scenes ]/Crystal Sequence.unity
+    guid: 18ab4d0e2ec725a45a607b2d4615300c
+  - enabled: 1
+    path: Assets/- [ Scenes ] -/[ Sub Scenes ]/Breakout.unity
+    guid: efa139aa505ab9e4a90245f4c1e7c577
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e81a207b8743f864c8e08c33b94e7731, type: 2}
+    Unity.XR.PXR.Settings: {fileID: 11400000, guid: 675a9061fc536844584d8121ad30d782, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 85ba2a160d299fc4cb5e942450294b72, type: 2}
