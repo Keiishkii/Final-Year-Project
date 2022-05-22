@@ -1417,7 +1417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 1.5
+  _effectsPosition: 1
   _positionEffectAmount: 0.5
   _effectSpeed: 1.5
 --- !u!1 &6087816770893596120

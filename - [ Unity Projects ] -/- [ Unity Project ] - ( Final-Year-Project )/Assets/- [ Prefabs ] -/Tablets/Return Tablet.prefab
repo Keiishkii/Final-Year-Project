@@ -61,7 +61,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.025
   _effectSpeed: 2
 --- !u!114 &571081807713926941
@@ -76,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74840ae43f632794da877647f9f4ff98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scene: {fileID: 102900000, guid: 5ebe29789c8a32d4ba6498406d79ab04, type: 3}
+  _sceneName: Menu
 --- !u!199 &2798216036304490165
 ParticleSystemRenderer:
   serializedVersion: 6

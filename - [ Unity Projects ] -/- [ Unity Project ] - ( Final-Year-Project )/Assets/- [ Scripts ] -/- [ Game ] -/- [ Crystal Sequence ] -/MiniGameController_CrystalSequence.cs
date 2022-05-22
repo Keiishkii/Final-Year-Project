@@ -62,6 +62,12 @@ namespace CrystalSequence
 
             _sequenceTablet = Instantiate(_sequenceTabletPrefab, _sequenceTabletSpawnLocation, quaternion.Euler(new float3(0, Mathf.PI, 0)), _transform);
             _crystalSequencerScript = _sequenceTablet.GetComponent<CrystalSequencer>();
+
+            Player player = FindObjectOfType<Player>();
+            if (player != null)
+            {
+                player.SetControlState = player.ControlStateCrystalSequence;
+            }
         }
 
 
@@ -73,15 +79,7 @@ namespace CrystalSequence
                 _crystalSequencerScript.IncrementIndex();
                 if (_crystalSequencerScript.IsEndOfSequence())
                 {
-                    Destroy(_sequenceTablet);
-                    foreach (GameObject crystal in _crystals)
-                    {
-                        Destroy(crystal);
-                    }
-
-                    _completionText = Instantiate(_completionTextPrefab, _completionTextSpawnLocation, Quaternion.Euler(new Vector3(0, 180, 0)), _transform);
-                    _returnTablet = Instantiate(_returnTabletPrefab, _returnTabletSpawnLocation, Quaternion.Euler(new Vector3(-20, 180, 0)), _transform);
-                    _returnTablet.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                    EndMiniGame();
                 }
             }
             else
@@ -89,7 +87,19 @@ namespace CrystalSequence
                 _crystalSequencerScript.ResetSequence();
             }
         }
-        
+
+        private void EndMiniGame()
+        {
+            Destroy(_sequenceTablet);
+            foreach (GameObject crystal in _crystals)
+            {
+                Destroy(crystal);
+            }
+
+            _completionText = Instantiate(_completionTextPrefab, _completionTextSpawnLocation, Quaternion.Euler(new Vector3(0, 180, 0)), _transform);
+            _returnTablet = Instantiate(_returnTabletPrefab, _returnTabletSpawnLocation, Quaternion.Euler(new Vector3(-20, 180, 0)), _transform);
+            _returnTablet.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        }
         
         
 

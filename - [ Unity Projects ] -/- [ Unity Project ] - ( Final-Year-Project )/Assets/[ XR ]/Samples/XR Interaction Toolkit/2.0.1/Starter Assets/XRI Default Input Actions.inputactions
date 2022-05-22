@@ -6,9 +6,27 @@
             "id": "eb6ec4b9-d7f8-4946-8907-0c853177488e",
             "actions": [
                 {
-                    "name": "W",
+                    "name": "Left",
                     "type": "Button",
                     "id": "bd066711-3e49-4cf0-9fa6-5d224ec4a26d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right",
+                    "type": "Button",
+                    "id": "1918ea0a-5924-4a06-9bba-e5d425b08e7d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "9acecca5-d22a-4123-a96f-fc17f0be1ec2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -19,11 +37,33 @@
                 {
                     "name": "",
                     "id": "53221465-c10a-41b3-ba94-4266db3be9a0",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "W",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7bff02fc-a097-4c43-9926-5e88987d08bb",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22264126-3bdd-4b3c-bac1-a37ea8d97de8",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

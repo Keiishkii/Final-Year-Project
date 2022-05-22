@@ -90,15 +90,15 @@ public class Debug_PlayerController : Player_Interface
     {
         _avatarTransform.rotation = Quaternion.Lerp(_avatarTransform.rotation, _desiredAvatarRotation, 0.025f);
 
-        _rightActivation = Mathf.Clamp(_rightActivation + ((_mouseRightClickInputAction.action.ReadValue<float>() > 0) ? _growthRate : -_growthRate), 0, 1);
-        _rightArmIKConstraint.weight = Mathf.Lerp(0.4f, 1f, _rightActivation);
+        rightActivation = Mathf.Clamp(rightActivation + ((_mouseRightClickInputAction.action.ReadValue<float>() > 0) ? growthRate : -growthRate), 0, 1);
+        _rightArmIKConstraint.weight = Mathf.Lerp(0.4f, 1f, rightActivation);
         
-        _debugCanvasScript.SetRightActivation(_rightActivation);
+        _debugCanvasScript.SetRightActivation(rightActivation);
         
-        _leftActivation = Mathf.Clamp(_leftActivation + ((_mouseLeftClickInputAction.action.ReadValue<float>() > 0) ? _growthRate : -_growthRate), 0, 1);
-        _leftArmIKConstraint.weight = Mathf.Lerp(0.4f, 1f, _leftActivation);
+        leftActivation = Mathf.Clamp(leftActivation + ((_mouseLeftClickInputAction.action.ReadValue<float>() > 0) ? growthRate : -growthRate), 0, 1);
+        _leftArmIKConstraint.weight = Mathf.Lerp(0.4f, 1f, leftActivation);
         
-        _debugCanvasScript.SetLeftActivation(_leftActivation);
+        _debugCanvasScript.SetLeftActivation(leftActivation);
 
         
         
@@ -111,7 +111,7 @@ public class Debug_PlayerController : Player_Interface
         
         
 
-        if (_allowLeftInput && _leftActivation > 0.9f)
+        if (_allowLeftInput && leftActivation > 0.9f)
         {
             _allowLeftInput = false;
             Ray ray = new Ray(_transform.position, _transform.forward);
@@ -124,12 +124,12 @@ public class Debug_PlayerController : Player_Interface
                 }
             }
         }
-        else if (!_allowLeftInput && _leftActivation < 0.3f)
+        else if (!_allowLeftInput && leftActivation < 0.3f)
         {
             _allowLeftInput = true;
         }
         
-        if (_allowRightInput && _rightActivation > 0.9f)
+        if (_allowRightInput && rightActivation > 0.9f)
         {
             _allowRightInput = false;
             Ray ray = new Ray(_transform.position, _transform.forward);
@@ -142,7 +142,7 @@ public class Debug_PlayerController : Player_Interface
                 }
             }
         }
-        else if (!_allowRightInput && _rightActivation < 0.3f)
+        else if (!_allowRightInput && rightActivation < 0.3f)
         {
             _allowRightInput = true;
         }

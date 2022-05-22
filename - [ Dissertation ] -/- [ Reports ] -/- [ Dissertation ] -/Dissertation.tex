@@ -4,14 +4,21 @@
 \usepackage{amsfonts}
 \usepackage{titlesec}
 \usepackage{color}
-\usepackage[backend=biber, citestyle=authoryear, sorting=nyt]{biblatex}\addbibresource{references.bib}
+\usepackage[style=apa,backend=biber, citestyle=authoryear, sorting=nyt]{biblatex}
+\addbibresource{references.bib}
 
 
 \title{Controlling Player Avatars in Game Worlds using Multi-Modal Input Systems}
 \author{Charlie Lloyd-Buckingham}
 \date{\today}
 
-%\newcommand{\citationneeded}{	\textcolor{red}{[Citation Need]}}
+\newcommand{\addfigure}
+{\hfill 
+
+\textcolor{red}{[Add Figure]}
+
+\hfill}
+\newcommand{\addcitation}{\textcolor{red}{[Citation Need]}}
 \newcommand{\ccite}[1]{(\citeauthor{#1}, \citeyear{#1})}
 \newcommand{\cciteyear}[1]{(\citeyear{#1})}
 \newcommand{\cciteauthor}[1]{(\citeauthor{#1})}
@@ -72,7 +79,7 @@ However, it is debated whether EEG technology is still in it's infancy. When inv
 
 \hfill
 
-The usage of EMG within video games has also been quite extensive. EMG based serious games have permitted the research of various topics, from measuring arousal to stimuli using the muscles in the face \ccite{schuurink2008engagement}, to the effectiveness of myoelectric prosthesis training \ccite{bessa2020designing}. While their use outside of research has aided in the rehabilitation of patients, suffering: post injury \ccite{gutierrez2020serious} \ccite{schonauer2011full}; strokes \ccite{ghassemi2019development} and other medical disorders \ccite{labruyere2013requirements}. Though much more infrequent, entertainment focused EMG games do exist. In large part with they goal for allowing people with motor impairments to have the opportunities to play games, Kamau-Mugro \cciteyear{muguro2020development} states ``focusing on neck EMG, would give more control to individuals with hand disabilities or SCI patient as a control scheme or an entertainment interface''.
+The usage of EMG within video games has also been quite extensive. EMG based serious games have permitted the research of various topics, from measuring arousal to stimuli using the muscles in the face \ccite{schuurink2008engagement}, to the effectiveness of myoelectric prosthesis training \ccite{bessa2020designing}. While their use outside of research has aided in the rehabilitation of patients, suffering: post injury \ccite{gutierrez2020serious} \ccite{schonauer2011full}; strokes \ccite{ghassemi2019development} and other medical disorders \ccite{labruyere2013requirements}. Though much more infrequent, entertainment focused EMG games do exist. In large part with they goal for allowing people with motor impairments to have the opportunities to play games, Kamau-Mugro \cciteyear{muguro2020development} states ``focusing on neck EMG, would give more control to individuals with hand disabilities or SCI [Spinal Cord Injury] patient as a control scheme or an entertainment interface''.
 
 \hfill
   
@@ -82,12 +89,67 @@ Having investigated the viability of EEG and EMG as uni-modal input systems, an 
 \pagebreak
 \section{Methodology and Process}			% - 3100 Words
 
+
+\subsection{Introduction to the project}
+The project was created in the Unity game engine, the two mini-games chosen where a simple repeating sequence game and a implementation of the game Breakout \addcitation{}. The sequence game was chosen due to it not requiring accurate or high response inputs, this allowed it to be perfect for the possibly inaccurate readings of motor imagery. While breakout was chosen due to it's simplicity and ease for increasing game difficulty through the changing of ball speed. 
+
+\subsubsection{Mini-game: Sequence}
+In the repeating sequence game, players would be required to repeat back a sequence of colours shown to them by 'activating' similarly coloured crystals. This was done using a combination of 'Motor Imagery EEG' and EMG, where the player would be given control over an avatars arms by looking in a direction and thinking about moving one half of there body. This would trigger a response from the game, having there avatar reach forward and touch a crystal.
+
+\addfigure %Add image of the minigame
+
+\subsubsection{Mini-game: Breakout}
+In Breakout, the player is given direct control of the paddle using the 'A' and 'D' on the keyboard. When the player is giving a lower level of focus the ball will increase its velocity, while the opposite is true when the player begins to focus more. Much like the original, the aim of the game is to destroy all the blocks.
+
+\addfigure %Add image of the minigame
+
+\pagebreak
+\subsection{EEG and EMG }
+\subsubsection{Keras and Keras Tuner}
+To decipher the meaning given from the EEG and EMG data, the solution of a Neural Network was required. This was accomplished using a Python library called Keras, an interface library for Google's TensorFlow library. Motor Imagery data from \addcitation{}, was then downloaded, this data was originally in .edf format and was first converted to the .csv format for easier human readability, after which was then supplied to the networks for training. 
+
+\hfill
+
+This however gave some what lacklustre accuracy when used, so in addition the use of hyper-parameter optimisation was used. The library used in this project to do this was KerasTuner, the purpose of which was to search for the optimal design of a network: changing the types of activation functions, number of layers and size of these layers; to allow for a much more accurate model.
+
+\addfigure %Add image of the networks training
+
+\subsubsection{Barracuda}
+After creating several reasonably accurate models using \addcitation{} and \addcitation{} data. The next step was to import these models into Unity. Unity has its own built in packages for Neural Networks, these being Unity Machine Learning Agents and Barracuda. The former focuses mainly on NPC AI, while the later can be used for almost any type of network, however required said network be in the .ONNX format. Due to the usage of this projects ANN's being classification based, Barracuda was the obvious choice, however the Keras produces networks of the .h5 format, as such a conversion was required. To do this, another python program was written to convert between .h5 and .ONNX models using the Keras2Onnx library. With this a script could finally be written within Unity to allow for the in-game real-time usage of these models.
+
+\pagebreak
+\subsection{LSL}
+\subsubsection{Integration}
+To receive the data from the input devices, the use of the LSL protocol was required. Specifically for this project the 'liblsl-Csharp' package \addcitation{} was used. This was imported into Unity and several scripts where then written to allow for the listening and broadcasting of different data types. To test whether this was working different devices on the network where then used to display the data using the 'Brain Vision LSL Viewer' application.
+
+\addfigure %Add image of the position tracker LSL scripts.
+
+\subsubsection{Online Data Spoofing}
+With the cross-device communication working, the next stage was to create a script for spoofing potential online data. This would be used to see if the neural networks generated by Keras Tuner where working in the engine correctly. Offline data supplied by the dataset used previously from the network's training, though not used directly in it, was then attached to Unity through a script, in the format of .csv's. Each frame, this script would publish the next lines content over the network, allowing for faked online EEG and EMG data.
+
+\hfill
+
+\subsubsection{Testing the models}
+
+
+
+\addfigure %Add image of the cube that moves for left and right.
+
+\break
 \begin{itemize}
-  \item Setup of Unity enviroment for VR.
-  \item LSL streams used for aquiring and writing data.
-  \item Offline processing and spoofing "online data" (reading CSV files) and writing the data over the LSL network.
-  \item I began by using python - (tensor flow, keras) - to classify EEG data using motor imagery to decide between a left and right motion.
-  \item To get a more accurate network I looked into KerasTuner, a hyper peramiter libuary for Keras.
+  \item 1)	Setup of Unity enviroment for VR (Describe the game).
+  \item 1.5) Show figure of game, and input devices
+  \item 2)	Two Mini Games (Sequence) - Introduction
+  \item 2.5) Show figure of devices,
+  \item 3)	Two Mini Games (Breakout) - Introduction
+  \item 2.5) Show figure of device and how they connect and are used,
+  \item 4)	I began by using python - (tensor flow, keras) - to classify EEG data using motor imagery to decide between a left and right motion.
+  \item 5)	To get a more accurate network I looked into KerasTuner, a hyper peramiter optimisation library for Keras.
+  \item 6)	LSL streams used for aquiring and writing data.
+  \item 7)	Offline processing and spoofing "online data" (reading CSV files) and writing the data over the LSL network.
+  \item 8)	Combining Barracuda with LSL.
+  \item 9)	Sequence games implementation.
+  \item 10)	Breakouts implementation.
 \end{itemize}
 
 

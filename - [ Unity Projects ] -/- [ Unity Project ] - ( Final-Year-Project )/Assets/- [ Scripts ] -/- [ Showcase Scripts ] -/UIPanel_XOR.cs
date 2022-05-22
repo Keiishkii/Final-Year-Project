@@ -47,7 +47,7 @@ public class UIPanel_XOR : MonoBehaviour
         Tensor inputTensor = new Tensor(1, 1, 1, 2, inputFloats.ToArray());
         Tensor outputTensor = _modelXOR.worker.Execute(inputTensor).PeekOutput();
             
-        _modelXOR.prediction.SetOutput(outputTensor);
+        _modelXOR.prediction.SetOutput(ref outputTensor);
         _outputState = (_modelXOR.prediction.Outputs[0] > 0.5f);
                 
         inputTensor.Dispose();

@@ -129,7 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.25
   _effectSpeed: 1
 --- !u!1001 &53567367332875545
@@ -223,7 +227,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.25
   _effectSpeed: 1
 --- !u!1001 &3583494606487833422
@@ -317,7 +325,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.25
   _effectSpeed: 1
 --- !u!1001 &3836047783876250806
@@ -411,7 +423,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.25
   _effectSpeed: 1
 --- !u!1001 &4901178432989928235
@@ -505,7 +521,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.25
   _effectSpeed: 1
 --- !u!1001 &5394264527944770437
@@ -599,7 +619,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.25
   _effectSpeed: 1
 --- !u!1001 &5958228028694910053
@@ -693,7 +717,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.25
   _effectSpeed: 1
 --- !u!1001 &6784169295856853341
@@ -787,6 +815,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 2
+  _effectsPosition: 1
   _positionEffectAmount: 0.25
   _effectSpeed: 1

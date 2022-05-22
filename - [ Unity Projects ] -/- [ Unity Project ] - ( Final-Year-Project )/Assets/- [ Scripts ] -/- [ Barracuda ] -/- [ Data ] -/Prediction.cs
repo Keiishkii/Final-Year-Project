@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace _Barracuda
 {
-        public struct Prediction
+    public struct Prediction
+    { 
+        private int _outputIndex;
+        public int OutputIndex => _outputIndex;
+
+        private float[] _outputs;
+        public float[] Outputs => _outputs;
+
+        public void SetOutput(ref Tensor tensor)
         {
-                private int _outputIndex;
-                public int OutputIndex => _outputIndex;
-
-                private float[] _outputs;
-                public float[] Outputs => _outputs;
-
-                public void SetOutput(Tensor tensor)
-                {
-                        _outputs = tensor.AsFloats();
-                        _outputIndex = Array.IndexOf(_outputs, _outputs.Max());
-                }
+            _outputs = tensor.AsFloats(); 
+            _outputIndex = Array.IndexOf(_outputs, _outputs.Max());
         }
+    }
 }

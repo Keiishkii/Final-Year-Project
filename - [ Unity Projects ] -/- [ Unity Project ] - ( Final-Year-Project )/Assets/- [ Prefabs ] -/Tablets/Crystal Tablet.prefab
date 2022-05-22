@@ -7428,7 +7428,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c8f774656725742a6f479f87525d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePosition: {x: 0, y: 0, z: 0}
+  baseRotation: {x: 0, y: 0, z: 0, w: 0}
+  _effectsRotation: 1
   _rotationEffectAmount: 1
+  _effectsPosition: 1
   _positionEffectAmount: 0.025
   _effectSpeed: 1
 --- !u!114 &3557478850895039454
@@ -7443,7 +7447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e844ccc9983d95408c4dd0620ae7e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scene: {fileID: 102900000, guid: 18ab4d0e2ec725a45a607b2d4615300c, type: 3}
+  _sceneName: Crystal Sequence
 --- !u!65 &-5969149873792262894
 BoxCollider:
   m_ObjectHideFlags: 0

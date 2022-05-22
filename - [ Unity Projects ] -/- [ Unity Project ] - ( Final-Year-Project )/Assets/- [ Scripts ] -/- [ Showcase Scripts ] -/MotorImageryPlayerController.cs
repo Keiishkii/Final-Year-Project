@@ -6,18 +6,18 @@ using _LSL;
 using Unity.Barracuda;
 using UnityEngine;
 
-[RequireComponent(typeof(LSLInputStream_EEGRealTimeData))]
+[RequireComponent(typeof(LSLInputStream_FloatArray))]
 public class MotorImageryPlayerController : MonoBehaviour
 {
     [SerializeField] private Barracuda_Model _model;
-    private LSLInputStream_EEGRealTimeData _lslInputStreamRealTimeData;
+    private LSLInputStream_FloatArray _lslInputStreamRealTimeData;
     private Rigidbody _rigidbody;
     
     
     
     private void Awake()
     {
-        _lslInputStreamRealTimeData = GetComponent<LSLInputStream_EEGRealTimeData>();
+        _lslInputStreamRealTimeData = GetComponent<LSLInputStream_FloatArray>();
         _rigidbody = GetComponent<Rigidbody>();
         
         _model.SetupModel();
@@ -35,7 +35,7 @@ public class MotorImageryPlayerController : MonoBehaviour
                 Tensor inputTensor = new Tensor(1, 1, 1, 64, sampleSet);
                 Tensor outputTensor = _model.worker.Execute(inputTensor).PeekOutput();
 
-                _model.prediction.SetOutput(outputTensor);
+                _model.prediction.SetOutput(ref outputTensor);
 
                 switch (_model.prediction.OutputIndex)
                 {

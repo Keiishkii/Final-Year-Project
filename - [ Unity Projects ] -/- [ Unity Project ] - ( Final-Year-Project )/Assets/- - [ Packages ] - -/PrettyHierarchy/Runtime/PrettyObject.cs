@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 namespace PrettyHierarchy
@@ -7,6 +6,7 @@ namespace PrettyHierarchy
     [DisallowMultipleComponent]
     public class PrettyObject : MonoBehaviour
     {
+#if UNITY_EDITOR
         //[Header("Background")]
         [SerializeField]
         private bool useDefaultBackgroundColor;
@@ -43,6 +43,6 @@ namespace PrettyHierarchy
         {
             EditorApplication.RepaintHierarchyWindow();
         }
+#endif
     }
 }
-#endif

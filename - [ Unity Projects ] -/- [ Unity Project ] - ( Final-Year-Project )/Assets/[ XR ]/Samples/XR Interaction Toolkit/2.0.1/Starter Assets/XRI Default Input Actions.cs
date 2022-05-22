@@ -28,9 +28,27 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             ""id"": ""eb6ec4b9-d7f8-4946-8907-0c853177488e"",
             ""actions"": [
                 {
-                    ""name"": ""W"",
+                    ""name"": ""Left"",
                     ""type"": ""Button"",
                     ""id"": ""bd066711-3e49-4cf0-9fa6-5d224ec4a26d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""1918ea0a-5924-4a06-9bba-e5d425b08e7d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""9acecca5-d22a-4123-a96f-fc17f0be1ec2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -41,11 +59,33 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""53221465-c10a-41b3-ba94-4266db3be9a0"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""W"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bff02fc-a097-4c43-9926-5e88987d08bb"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22264126-3bdd-4b3c-bac1-a37ea8d97de8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -183,7 +223,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
 }");
         // Keyboard
         m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
-        m_Keyboard_W = m_Keyboard.FindAction("W", throwIfNotFound: true);
+        m_Keyboard_Left = m_Keyboard.FindAction("Left", throwIfNotFound: true);
+        m_Keyboard_Right = m_Keyboard.FindAction("Right", throwIfNotFound: true);
+        m_Keyboard_Escape = m_Keyboard.FindAction("Escape", throwIfNotFound: true);
         // Mouse
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_Position = m_Mouse.FindAction("Position", throwIfNotFound: true);
@@ -248,12 +290,16 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     // Keyboard
     private readonly InputActionMap m_Keyboard;
     private IKeyboardActions m_KeyboardActionsCallbackInterface;
-    private readonly InputAction m_Keyboard_W;
+    private readonly InputAction m_Keyboard_Left;
+    private readonly InputAction m_Keyboard_Right;
+    private readonly InputAction m_Keyboard_Escape;
     public struct KeyboardActions
     {
         private @InputActions m_Wrapper;
         public KeyboardActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @W => m_Wrapper.m_Keyboard_W;
+        public InputAction @Left => m_Wrapper.m_Keyboard_Left;
+        public InputAction @Right => m_Wrapper.m_Keyboard_Right;
+        public InputAction @Escape => m_Wrapper.m_Keyboard_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,16 +309,28 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_KeyboardActionsCallbackInterface != null)
             {
-                @W.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnW;
-                @W.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnW;
-                @W.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnW;
+                @Left.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLeft;
+                @Right.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnRight;
+                @Escape.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @W.started += instance.OnW;
-                @W.performed += instance.OnW;
-                @W.canceled += instance.OnW;
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -355,7 +413,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     }
     public interface IKeyboardActions
     {
-        void OnW(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
     public interface IMouseActions
     {

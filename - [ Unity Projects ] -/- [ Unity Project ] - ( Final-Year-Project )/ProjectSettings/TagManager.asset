@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - 'Breakout: Block'
+  - 'Breakout: Paddle'
+  - 'Breakout: Emitter'
   layers:
   - Default
   - TransparentFX

@@ -15,7 +15,7 @@ namespace _LSL
         private void Awake()
         {
             _inputActions = new InputActions();
-            _inputActions.Keyboard.W.performed += ctx => PushOutput();
+            _inputActions.Keyboard.Left.performed += ctx => PushOutput();
         }
 
 

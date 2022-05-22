@@ -46,7 +46,7 @@ namespace _Barracuda
                     Tensor inputTensor = new Tensor(1, 1, 1, 64, inputFloats.ToArray());
                     Tensor outputTensor = targetScript.model.worker.Execute(inputTensor).PeekOutput();
 
-                    targetScript.model.prediction.SetOutput(outputTensor);
+                    targetScript.model.prediction.SetOutput(ref outputTensor);
                     //_outputLabel = $"{targetScript.model.prediction.Outputs[0] + ", " + targetScript.model.prediction.Outputs[1] + ", "+ targetScript.model.prediction.Outputs[2]}";
                     _outputLabel = $"{targetScript.model.prediction.OutputIndex}";
 

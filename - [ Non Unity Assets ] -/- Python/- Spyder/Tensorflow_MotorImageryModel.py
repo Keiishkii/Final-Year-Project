@@ -24,7 +24,8 @@ print("Num GPUs Available: ", len(tensorflow.config.list_physical_devices('GPU')
 #%%###########################
 #   - Global Variables -     #
 ##############################
-trainingDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
+#trainingDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
+trainingDataPath = "D:\My Data\EEG Data\CSV files\\"
 trainingDataFileNames = [
     "S001R04",
     "S001R08",
@@ -40,7 +41,8 @@ trainingDataFileNames = [
     #"S004R12",
     ]
 
-validationDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
+#validationDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
+validationDataPath = "D:\My Data\EEG Data\CSV files\\"
 validationDataFileNames = [
     #"S001R04",
     #"S001R08",
@@ -99,10 +101,9 @@ def get_data_and_marker_lists(path, filenames):
     
     for filename in tqdm(filenames):
         #Open the data and event files
-        try:
-            dataFile = open(path + filename + ".csv", "r", newline = '')
-            markerFile = open(path + filename + "_Markers.csv", "r", newline = '')
-            
+        dataFile = open(path + filename + ".csv", "r", newline = '')
+        markerFile = open(path + filename + "_Markers.csv", "r", newline = '')
+        try:            
             #reads the data as a csv and formats it into a list of rows
             reader = csv.reader(dataFile, delimiter = ",")    
             dataList = list(reader)
@@ -153,7 +154,7 @@ def clean_data(dataList, markerList):
         indexesToRemove = []
         for index in tqdm(markerIndexes): 
             removedCount = 0
-            while index + removedCount < len(markerList) and removedCount < 60:
+            while index + removedCount < len(markerList) and removedCount < 120:
                 indexesToRemove.append(index + removedCount)
                 removedCount += 1
            

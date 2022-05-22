@@ -6,13 +6,19 @@ using Random = UnityEngine.Random;
 
 public class Hover : MonoBehaviour
 {
-    private Vector3 _basePosition;
-    private Quaternion _baseRotation;
+    [HideInInspector] public Vector3 basePosition;
+    [HideInInspector] public Quaternion baseRotation;
 
     private Transform _transform;
 
+    [SerializeField] private bool _effectsRotation;
     [SerializeField] private float _rotationEffectAmount = 1;
+    
+    [Space]
+    [SerializeField] private bool _effectsPosition;
     [SerializeField] private float _positionEffectAmount = 1;
+    
+    [Space]
     [SerializeField] private float _effectSpeed = 1;
 
     private float[] _randomisedTimeOffsets;
@@ -24,8 +30,8 @@ public class Hover : MonoBehaviour
     {
         _transform = transform;
         
-        _basePosition = _transform.position;
-        _baseRotation = _transform.rotation;
+        basePosition = _transform.position;
+        baseRotation = _transform.rotation;
 
         _randomisedTimeOffsets = new[]
         {
@@ -48,12 +54,13 @@ public class Hover : MonoBehaviour
     {
         float time = Time.timeSinceLevelLoad;
 
-        Vector3 position = _basePosition + new Vector3(0, Mathf.Sin((time * _effectSpeed * _randomisedTimeOffsets[0])) * _positionEffectAmount * _randomisedPositionOffsets[0], 0);
-        Quaternion rotation = _baseRotation * Quaternion.Euler(new Vector3(
+        Vector3 position = basePosition + new Vector3(0, Mathf.Sin((time * _effectSpeed * _randomisedTimeOffsets[0])) * _positionEffectAmount * _randomisedPositionOffsets[0], 0);
+        Quaternion rotation = baseRotation * Quaternion.Euler(new Vector3(
             Mathf.Sin((time * _effectSpeed * _randomisedTimeOffsets[1])) * _rotationEffectAmount * _randomisedPositionOffsets[1], 
             Mathf.Sin((time * _effectSpeed * _randomisedTimeOffsets[2])) * _rotationEffectAmount * _randomisedPositionOffsets[2], 
             Mathf.Sin((time * _effectSpeed * _randomisedTimeOffsets[3])) * _rotationEffectAmount * _randomisedPositionOffsets[3]));
         
-        _transform.SetPositionAndRotation(position, rotation);
+        if (_effectsPosition) _transform.position = position;
+        if (_effectsRotation) _transform.rotation = rotation;
     }
 }

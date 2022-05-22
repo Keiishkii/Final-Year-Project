@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 public class GameSelectTablet : Interactable_Interface
 {
-    [SerializeField] private Object _scene;
+    [SerializeField] private string _sceneName;
     private GameManager _gameManager;
     
     private void Awake()
@@ -18,6 +18,6 @@ public class GameSelectTablet : Interactable_Interface
     
     public override void Activate()
     {
-        _gameManager.LoadNewSubScene(_scene);
+        _gameManager.LoadNewSubScene(_sceneName);
     }
 }
