@@ -36,6 +36,7 @@ sysinfo.txt
 
 # Builds
 *.apk
+*.zip
 *.unitypackage
 
 #Other Unity Stuff
