@@ -4,6 +4,9 @@
 \usepackage{amsfonts}
 \usepackage{titlesec}
 \usepackage{color}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{verbatim}
 \usepackage[style=apa,backend=biber, citestyle=authoryear, sorting=nyt]{biblatex}
 \addbibresource{references.bib}
 
@@ -12,16 +15,21 @@
 \author{Charlie Lloyd-Buckingham}
 \date{\today}
 
-\newcommand{\addfigure}
+
+\newcommand{\addfigure}[1]
 {\hfill 
 
-\textcolor{red}{[Add Figure]}
+\textcolor{red}{[Add Figure: #1]}
 
 \hfill}
+
+
+
 \newcommand{\addcitation}{\textcolor{red}{[Citation Need]}}
 \newcommand{\ccite}[1]{(\citeauthor{#1}, \citeyear{#1})}
 \newcommand{\cciteyear}[1]{(\citeyear{#1})}
 \newcommand{\cciteauthor}[1]{(\citeauthor{#1})}
+\newcommand{\reffig}[1]{Figure \ref{#1}}
 
 \begin{document}
 
@@ -86,10 +94,122 @@ The usage of EMG within video games has also been quite extensive. EMG based ser
 Having investigated the viability of EEG and EMG as uni-modal input systems, an exploration into their combined usage alongside other additional input modalities can be performed. Though the appearance of entertainment based multi-modal EEG and EMG systems are infrequent, multi-modal serious games using EEG and EMG are a lot more common. An example of which is Sivanathans \cciteyear{sivanathan2014temporal} work on multi-modal EEG analysis, in which data from in-game events was coupled with the EEG input streams to allow for a greater understanding of the results. Though there isn't many instances of multi-modal EEG and EMG based video game systems, that isn't to say inspiration for these systems cannot come from elsewhere, the majority of research in which multi-modal EEG and EMG systems have been built for is in the development of consumer prosthetics \ccite{shi2019novel} and wheelchair controllers \ccite{carlson2013brain}. These systems pull from the data streams of EEG and EMG and by using eye-tracking, computer vision and inverse kinematics \ccite{mcmullen2013demonstration} are able to allow for finer control over hardware systems that on their own EEG and EMG wouldn't be able. By adopting a similar approach, these real world solutions can be used with virtual controllers instead. 
 
 
+
+
+
+
+
 \pagebreak
-\section{Methodology and Process}			% - 3100 Words
+\section{Methodology and Process}			% - 5100 Words
+
+In this section, the design and implementation of both the system and example game will be discussed. The system, shown in \reffig{fig:system_diagram_:_generic}, will be devised to allow for the retrieval of real-time data from three input devices: the Emteq Pro, for sampling the EMG data; the eego sports, for sampling EEG data; and a compatible VR headset, for tracking player position and orientation. Following this, required data will pass them over a local network and, using machine learning, the system would construe a meaning from these inputs which was then used within the game.
 
 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width = 0.9 \linewidth] {[ Figures ]/System Diagram.png}
+	\caption{System diagram: How input data from the specified technologies will be accessed and used within the game.}
+	\label{fig:system_diagram_:_generic}
+\end{figure}
+
+
+
+The game was developed in the Unity 3D game engine, all technologies where integrated into the engine using C\#, and a variety of packages provided for Unity. The game itself consisted of a collection of two mini-games, both focusing on different aspects of how a system like this could be used in a real world consumer ready example. 
+
+The first, \reffig{fig:the_game_1}, was a clone of the arcade game Breakout \addcitation{}, in which the player aim to break all blocks on the board by reflecting a ball into them using a paddle at the bottom of the play area. The intent with this part of the project was to allow for indirect influences of the player on the game world, in this case through difficulty scaling. This was done by classifying the players state of relaxation and concentration, increasing and decreasing the balls movement speed based what state the system deemed to be most likely.
+
+The second mini-game, \reffig{fig:the_game_2}, was about repeating a randomised sequence of colours. The player would be tasked with repeating this sequence back, by activating crystals of the same colours in the same order. This mini-game was used to explore the concepts of motor-imagery based avatar control. This was accomplished by requiring the player to activate a crystals by lifting one of the avatars arms up. To accomplish this the player was required to think left-wards or right-wards and in doing so the avatar would begin lifting the chosen hand forwards. 
+
+
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[b]{0.45\linewidth}
+		\includegraphics[width = \linewidth] {[ Figures ]/Get Figure.png}
+		\caption{Concentration based difficulty, Breakout mini-game.}
+		\label{fig:the_game_1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\linewidth}
+		\includegraphics[width = \linewidth] {[ Figures ]/Get Figure.png}
+		\caption{Motor imagery controlled, sequence mini-game.}
+		\label{fig:the_game_2}
+	\end{subfigure}
+	\caption{The game.}
+	\label{fig:the_game}
+\end{figure}
+
+
+
+
+
+%System Inputs
+\subsection{System Inputs}	
+Research into the different input methodologies demonstrated 
+
+\addfigure{Zoom in of 'System Inputs' section of the diagram}
+
+\subsubsection{EEG}	
+The recording of live EEG data is accomplished by sampling voltage potentials across a users scalp using an array of sensors, these signals are then collated within an amplifier, such as the EEGO Sport, and accessed in the form of a stream of float channels, usually one channel for each of the sensors. The usages of this technology within the project will be specificity for motor imagery, and relaxation and concentration classification. Accessing this data live will be discussed in the networking part of this paper, however worth noting is that, due to the impractical nature of constant EEG tests, the large majority of this project was built around spoofing live EEG data using offline recordings.
+
+
+\subsubsection{EMG}	
+Similarly with EEG, EMG is the recording of the ambient voltage given from the activation of motor neurons. By placing these sensors across the certain regions of the body, models of muscular movements can be understood. The use of this technology within this project was focused around the eye, where it was used to detect blinking. This was to act as a way of stopping muscular interference within the EEG data caused by player blinks. Offline EMG data was also used in replacement for needing true live data.
+
+
+\subsubsection{VR}	
+Though this system was initially intended for the use of the HTC Vive Pro Eye, with Unity's XR Interaction Tool-kit package the specific headset used within the project is a bit less consequential. Using the this package, the tracking data accessed from a headsets can be very easily from a variety of different devices. However, headsets require that a project to be built for a specific platform, such as Android or Windows. With the intent of building this project for the HTC Vive however, the build platform can remain as Windows. In addition, this allowed for a mouse and keyboard solution to also be integrated into the project, to replace the inputs given via the headsets. This was important to do as it allowed for faster and less cumbersome testing of the solution. This replaced the headsets orientation tracking with a parametric based look function controlled via the mouses movement delta, as well as control over the paddle in breakout using the `A' and `D' keys, instead of inputs from the headsets controller.
+
+
+
+
+
+%Network Data Transfer
+\subsection{Network Data Transfer}	
+%Unlike the data from VR headsets and the emteq pro, where access is easily given through Unity packages, accessing EEG data is more complicated through using the LSL protocol.
+Unlike the direct access that VR headsets and the Emteq Pro gives to their data within Unity through the packages provided, accessing the EEG data can't be done so easily. The solution is the LSL protocol. 
+% Explain what LSL is and why is useful before why using it here. OpenVibe Figure?
+The EEGO Sport amplifier supports real-time writing of all data recorded during a session over a local network using the LSL protocol. LSL is designed to allow for near real-time access of data from anywhere on a local network. For this to work in Unity the 'liblsl-Csharp' package \addcitation{} was used, when using a non-standalone headset like the HTC Vive the Windows LSL .dll is required, while other headsets like the Pico Neo or the Oculus require their own Android .dll to allow for LSL to work within Unity. 
+
+With the .dll's and the LSL.cs file is within the project, C\# scripts for writing to and reading from the network can be written. These retrieval scripts were written to now access EEG data in real time from within the game.
+
+
+
+
+
+%Machine Learning
+\subsection{Machine Learning}	
+\subsubsection{Python}	
+\subsubsection{Keras}	
+\subsubsection{Keras Tuner}
+\subsubsection{Baracuda}	
+
+
+%The Games
+
+
+
+Though this project is designed to work on a VR headset with real-time EEG and EMG data provided, testing resulted in building the project for Windows PC's with a mouse / keyboard input system, alongside offline EEG and EMG data.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+\pagebreak
 \subsection{Introduction to the project}
 The project was created in the Unity game engine, the two mini-games chosen where a simple repeating sequence game and a implementation of the game Breakout \addcitation{}. The sequence game was chosen due to it not requiring accurate or high response inputs, this allowed it to be perfect for the possibly inaccurate readings of motor imagery. While breakout was chosen due to it's simplicity and ease for increasing game difficulty through the changing of ball speed. 
 
@@ -151,6 +271,9 @@ With the cross-device communication working, the next stage was to create a scri
   \item 9)	Sequence games implementation.
   \item 10)	Breakouts implementation.
 \end{itemize}
+\end{comment}
+
+
 
 
 \pagebreak
@@ -165,6 +288,9 @@ With the cross-device communication working, the next stage was to create a scri
 		% - 300 Words
 
 \pagebreak
-\printbibliography
+\printbibliography[notkeyword = software, title = References]
+
+\pagebreak
+\printbibliography[keyword = software, title = Software]
 
 \end{document}
