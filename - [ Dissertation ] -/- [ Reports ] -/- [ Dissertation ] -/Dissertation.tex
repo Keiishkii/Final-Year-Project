@@ -6,6 +6,7 @@
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{float}
 \usepackage{verbatim}
 \usepackage[style=apa,backend=biber, citestyle=authoryear, sorting=nyt]{biblatex}
 \addbibresource{references.bib}
@@ -17,19 +18,30 @@
 
 
 \newcommand{\addfigure}[1]
-{\hfill 
+{
+\hfill 
 
 \textcolor{red}{[Add Figure: #1]}
 
-\hfill}
+\hfill
+}
 
+\newcommand{\commentintext}[1]
+{\hfill 
+
+\textcolor{red}{#1} 
+	
+\hfill
+}
 
 
 \newcommand{\addcitation}{\textcolor{red}{[Citation Need]}}
 \newcommand{\ccite}[1]{(\citeauthor{#1}, \citeyear{#1})}
 \newcommand{\cciteyear}[1]{(\citeyear{#1})}
 \newcommand{\cciteauthor}[1]{(\citeauthor{#1})}
-\newcommand{\reffig}[1]{Figure \ref{#1}}
+\newcommand{\reffigure}[1]{Figure \ref{#1}}
+\newcommand{\reftable}[1]{Table \ref{#1}}
+\newcommand{\refequation}[1]{Equation \ref{#1}}
 
 \begin{document}
 
@@ -66,7 +78,7 @@ On account of the digital nature of video games, as technology has evolved over 
 There has also been a growing interest in the usage of electroencephalographic (EEG) and electromyographic (EMG) techniques being coupled with game engines for the purpose of research. The use of games in research has been invaluable for decades, due to the control gained over how a subject is stimulated throughout an experiment's lifetime. The act of reversing this dynamic and using these systems for the purpose of entertainment has also been explored \ccite{6518141}, however there is yet be any product viable for consumers to play. 
 
 \subsection{Project Aims}
-It is with this in mind, that this paper proposes to continue with the investigation into the viability of EEG, EMG, and other additional input modalities within video games. By acquiring data from all devices and combining them, the aim is for the creation of a single system capable of attaining and extracting meaningful interactions from it's users for control over aspects of game world. Along side this, two example games will also be constructed, these will be used to verify if the system is capable of performing it's tasks correctly and potentially demonstrate a working example from within a use-case environment.
+It is with this in mind, that this paper proposes to continue with the investigation into the viability of using EEG, EMG, and other additional input modalities in a video game. By acquiring data from multiple devices and combining them, the aim is for the creation of a single system capable of attaining and extracting meaningful interactions from it's users for control over aspects of game world. Along side this, two example games will also be constructed, these will be used to verify if the system is capable of performing it's tasks correctly and potentially demonstrate a working example from within a use-case environment.
 
 \subsection{Project Objectives}
 To get this system working, data from each device will need to be accessed live and streamed into the Unity game engine where a pre-trained artificial neural network (ANN) will be used to decipher a meaning suitable for the given game. From this the two games will be developed: the first will have the player use motor imagery to control the limbs of a virtual avatar; the second game will use the system measure the users state of mind, allowing for adaptive difficulty depending on the focus of the player.
@@ -102,11 +114,11 @@ Having investigated the viability of EEG and EMG as uni-modal input systems, an 
 \pagebreak
 \section{Methodology and Process}			% - 5100 Words
 
-In this section, the design and implementation of both the system and example game will be discussed. The system, shown in \reffig{fig:system_diagram_:_generic}, will be devised to allow for the retrieval of real-time data from three input devices: the Emteq Pro, for sampling the EMG data; the eego sports, for sampling EEG data; and a compatible VR headset, for tracking player position and orientation. Following this, required data will pass them over a local network and, using machine learning, the system would construe a meaning from these inputs which was then used within the game.
+In this section, the design and implementation of both the system and example game will be discussed. The system, shown in \reffigure{fig:system_diagram_:_generic}, will be devised to allow for the retrieval of real-time data from three input devices: the Emteq Pro, for sampling the EMG data; the eego sports, for sampling EEG data; and a compatible VR headset, for tracking player position and orientation. Following this, the input data would then be passed directly to the application or distributed across the local network where through the use of machine learning, a meaning would be construed and used in a way to affect the game.
 
 
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.9 \linewidth] {[ Figures ]/System Diagram.png}
 	\caption{System diagram: How input data from the specified technologies will be accessed and used within the game.}
@@ -115,81 +127,191 @@ In this section, the design and implementation of both the system and example ga
 
 
 
-The game was developed in the Unity 3D game engine, all technologies where integrated into the engine using C\#, and a variety of packages provided for Unity. The game itself consisted of a collection of two mini-games, both focusing on different aspects of how a system like this could be used in a real world consumer ready example. 
-
-The first, \reffig{fig:the_game_1}, was a clone of the arcade game Breakout \addcitation{}, in which the player aim to break all blocks on the board by reflecting a ball into them using a paddle at the bottom of the play area. The intent with this part of the project was to allow for indirect influences of the player on the game world, in this case through difficulty scaling. This was done by classifying the players state of relaxation and concentration, increasing and decreasing the balls movement speed based what state the system deemed to be most likely.
-
-The second mini-game, \reffig{fig:the_game_2}, was about repeating a randomised sequence of colours. The player would be tasked with repeating this sequence back, by activating crystals of the same colours in the same order. This mini-game was used to explore the concepts of motor-imagery based avatar control. This was accomplished by requiring the player to activate a crystals by lifting one of the avatars arms up. To accomplish this the player was required to think left-wards or right-wards and in doing so the avatar would begin lifting the chosen hand forwards. 
+The game was developed in the game engine Unity 3D. To use the data from the VR, EEG and EMG devices, each technology was integrated into the engine using C\#, and a variety of packages provided by and for Unity. The game itself consisted of a pair of two mini-games, both focusing on potential aspects of how a system like this could reasonably be used in a real world example. 
 
 
-
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.45\linewidth}
+	\begin{subfigure}[t]{0.45\linewidth}
 		\includegraphics[width = \linewidth] {[ Figures ]/Get Figure.png}
 		\caption{Concentration based difficulty, Breakout mini-game.}
 		\label{fig:the_game_1}
 	\end{subfigure}
-	\begin{subfigure}[b]{0.45\linewidth}
+	\begin{subfigure}[t]{0.45\linewidth}
 		\includegraphics[width = \linewidth] {[ Figures ]/Get Figure.png}
 		\caption{Motor imagery controlled, sequence mini-game.}
 		\label{fig:the_game_2}
 	\end{subfigure}
-	\caption{The game.}
+	\caption{Screen shots of the game.}
 	\label{fig:the_game}
 \end{figure}
 
 
+The first, \reffigure{fig:the_game_1}, was a clone of the arcade game Breakout \addcitation{}, in which the players aim is to break each block on the games board by bouncing a ball into them using a movable paddle, placed at the bottom of the play area. The intent with this part of the project was to allow the player to be able to effect the game world through an indirect influences, in this case, through the scaling of game difficulty. This was done by classifying the players state of relaxation and concentration, increasing and decreasing the balls movement speed based what state the neural networks within the system determines the focus level to be.
+
+The second mini-game, \reffigure{fig:the_game_2}, was about repeating a randomised sequence of colours. The player would be tasked with repeating this sequence back, by activating crystals of the same colours in the same order. This mini-game was used to explore the concepts of motor-imagery based avatar control. This was accomplished by requiring the player to activate a crystals by lifting one of the avatars arms up. To accomplish this the player was required to think left-wards or right-wards and in doing so the avatar would begin lifting the chosen hand forwards. 
 
 
 
+
+
+
+\pagebreak
 %System Inputs
 \subsection{System Inputs}	
 Research into the different input methodologies demonstrated 
 
-\addfigure{Zoom in of 'System Inputs' section of the diagram}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.7 \linewidth] {[ Figures ]/Get Figure.png}
+	\caption{System diagram: The input devices for the entire system.}
+	\label{fig:system_diagram_:_inputs}
+\end{figure}
+
 
 \subsubsection{EEG}	
-The recording of live EEG data is accomplished by sampling voltage potentials across a users scalp using an array of sensors, these signals are then collated within an amplifier, such as the EEGO Sport, and accessed in the form of a stream of float channels, usually one channel for each of the sensors. The usages of this technology within the project will be specificity for motor imagery, and relaxation and concentration classification. Accessing this data live will be discussed in the networking part of this paper, however worth noting is that, due to the impractical nature of constant EEG tests, the large majority of this project was built around spoofing live EEG data using offline recordings.
+The recording of live EEG data is achieved through the sampling of voltage potentials across a subjects scalp. This is done through the use of a sensor array, the signals collected from these sensors are then collated within an amplifier, such as the EEGO Sport, and accessed in the form of a stream of float channels, usually one channel per sensors. Finally to record this data the amplifier is then connected back to a host computer, in which the saving and recording of the data is completed. The usages of this technology within the project will be specificity for motor imagery, and relaxation and concentration classification. Accessing this data live will be discussed in the networking part of this paper, however worth noting is that, due to the impractical nature of constant EEG tests, the large majority of this project was built around spoofing live EEG data using offline recordings. The specific ways in which this will be achieved will also be covered later in this paper.
 
 
 \subsubsection{EMG}	
-Similarly with EEG, EMG is the recording of the ambient voltage given from the activation of motor neurons. By placing these sensors across the certain regions of the body, models of muscular movements can be understood. The use of this technology within this project was focused around the eye, where it was used to detect blinking. This was to act as a way of stopping muscular interference within the EEG data caused by player blinks. Offline EMG data was also used in replacement for needing true live data.
+Similarly with EEG, EMG is the recording of the ambient voltage of the body, however specifically for EMG this comes from the activation of motor neurons. By placing these sensors across the certain regions of the body, the activity of muscular movements can be recorded and understood. The use of this technology within this project was focused around the eye, where it was used to detect when the player would blink. The purpose of this was to be able to detect and cease the effects of any EEG data on the game during the times a player blinked, this was seen as a requirement to the large amount of interference the movement of facial muscle can cause upon EEG recordings. In parallel to that of the EEG, pre-record sessions of normal and blinking EMG data was also used in the stead of requiring access to live data each time the project need to be tested. 
+
 
 
 \subsubsection{VR}	
-Though this system was initially intended for the use of the HTC Vive Pro Eye, with Unity's XR Interaction Tool-kit package the specific headset used within the project is a bit less consequential. Using the this package, the tracking data accessed from a headsets can be very easily from a variety of different devices. However, headsets require that a project to be built for a specific platform, such as Android or Windows. With the intent of building this project for the HTC Vive however, the build platform can remain as Windows. In addition, this allowed for a mouse and keyboard solution to also be integrated into the project, to replace the inputs given via the headsets. This was important to do as it allowed for faster and less cumbersome testing of the solution. This replaced the headsets orientation tracking with a parametric based look function controlled via the mouses movement delta, as well as control over the paddle in breakout using the `A' and `D' keys, instead of inputs from the headsets controller.
+Though this system was initially intended for the use of the HTC Vive Pro Eye, with Unity's XR Interaction Tool-kit package the specific headset used within the project is a bit less consequential, due to the new input system adapting interactions to action bindings, rather then using the original method for managing game inputs using if statements. Using the this package, tracking data accessed from almost any headsets can be very easily bound as an action in the interaction asset. Headsets do however require that a project to be built for a specific platform, such as Android or Windows. With the intent of building this project for the HTC Vive however, the build platform can remain as Windows. In addition, this allowed for a mouse and keyboard solution to also be integrated into the project, to replace the inputs given via the headsets. This was important to do as it allowed for faster and less cumbersome testing of the solution. This replaced the headsets orientation tracking with a parametric based look function controlled via the mouses movement delta, as well as control over the paddle in breakout using the `A' and `D' keys, instead of inputs from the headsets controller.
 
 
 
 
-
+\pagebreak
 %Network Data Transfer
-\subsection{Network Data Transfer}	
-%Unlike the data from VR headsets and the emteq pro, where access is easily given through Unity packages, accessing EEG data is more complicated through using the LSL protocol.
-Unlike the direct access that VR headsets and the Emteq Pro gives to their data within Unity through the packages provided, accessing the EEG data can't be done so easily. The solution is the LSL protocol. 
-% Explain what LSL is and why is useful before why using it here. OpenVibe Figure?
-The EEGO Sport amplifier supports real-time writing of all data recorded during a session over a local network using the LSL protocol. LSL is designed to allow for near real-time access of data from anywhere on a local network. For this to work in Unity the 'liblsl-Csharp' package \addcitation{} was used, when using a non-standalone headset like the HTC Vive the Windows LSL .dll is required, while other headsets like the Pico Neo or the Oculus require their own Android .dll to allow for LSL to work within Unity. 
-
-With the .dll's and the LSL.cs file is within the project, C\# scripts for writing to and reading from the network can be written. These retrieval scripts were written to now access EEG data in real time from within the game.
+\subsection{Cross Network Data Transfer}	
+Unlike accessing data from both the VR headset and the Emteq Pro, where both maintain a direct physical connection to the games host device, accessing EEG data is more complicated. As stated previously, sampling EEG data is done through connecting the sensors to an amplifier and then the amplifier to a separate computer for recording, however to maintain an undisturbed and interference free sample collection this system must be separate from that of the system the game is running on. This creates a new problem, how to access the data generated on a separate machine across a local network, and more specifically how to access this data in as close to real-time as possible.
 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.7 \linewidth] {[ Figures ]/Get Figure.png}
+	\caption{Data transfer across the local network using the LSL protocol.}
+	\label{fig:networking_diagram}
+\end{figure}
+
+
+\subsubsection{LSL}	
+For this to be done the solution of the LSL protocol \ccite{labstreaminglayer} was explored. LSL offers time-synchronous multi-type data transfer across local networks. Fortunately systems like the EEGO Sport come with software that supports this protocol by default, this has allowed for the distribution of all live data recorded from the head-wear to be accessed by any device on the network.
+
+  
+\subsubsection{Integration with Unity}	
+However, though the broadcasting of EEG data via LSL, using software like EEGO, is inconsequential, accessing these streams within Unity requires a bit more work. To do this the 'liblsl-Csharp' package was used. This package allows for the integration of the LSL protocol into Unity through C\# scripting, requiring only the inclusion of the provided LSL.cs file, a C\# scripting file, and a specific .dll, library file, matching the games build platform. The library file used in the project is determined by the VR headset that a game is being built for, in the case that this projects aims to build on a device like the HTC Vive, the required library was LSL's Windows .dll. However for headsets like the Pico G2 4KS and the Oculus Quest, an Android based library will need to be built for the specific version of Android these headsets are running. 
+
+\commentintext{Maybe talk about the actual C\# scripts in as an extra paragraph}
+\commentintext{Also talk about the spoofing of the EEG and EMG data using LSL}
 
 
 
+
+\pagebreak
 %Machine Learning
 \subsection{Machine Learning}	
-\subsubsection{Python}	
-\subsubsection{Keras}	
+Even with the data accessible within Unity, understand a meaning from the data is more complicated, and requires a more involved solution. Taking these inputs at face value, both the EEG and EMG data returns a series of float values each sample, in the form of either a list or array. Manually testing these numbers directly within Unity wasn't a viable solution, due to how individually these values are somewhat meaningless. Instead the projected opted for the use of pre-trained FFNNs (Feed Forward Neural Networks) within the game, this would allow for an analysis of the patterns forming within the data set as a whole. From this, three networks were developed for the project, each was tasked with the classification of both the EEG and EMG streams, into the given outputs: for the motor-imagery portion of the project the networks were trained to classify the likelihood between, an imagined left, right and neutral state; as for the concentration based network, EEG data was once again used to determine between a state of relaxation and of concentration; while lastly, the final network used EMG data to classify between the opening and closing of a players eyes.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.7 \linewidth] {[ Figures ]/Get Figure.png}
+	\caption{Artificial neural networks, there inputs and outputs.}
+	\label{fig:system_diagram_:_machine_learning}
+\end{figure}
+
+
+\subsubsection{Keras}	 
+To create these networks the Python library Keras \ccite{keras} was used. Keras is an interface library for Google Brains TensorFlow \cciteyear{tensorflow}, another python library used for the creation and training neural networks. Using the offline motor-imagery, relaxation and focus, and eye movement data sets mentioned in the System Inputs section of this paper, a model using `Binary Cross-Entropy' was generated for each. These models where originally designed with a hidden layer 20\% the size of the input layer, as shown in \reffigure{fig:ffnn_:_original_motor_imagery}. However the results of this network after several hours of training didn't appear promising
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[t]{0.45\linewidth}
+		\includegraphics[width = \linewidth] {[ Figures ]/Get Figure.png}
+		\caption{Example of the original FFNN used in the project.}
+		\label{fig:ffnn_:_original_motor_imagery}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.45\linewidth}
+		\includegraphics[width = \linewidth] {[ Figures ]/Get Figure.png}
+		\caption{Example of the updated FFNN using more hidden layers, where the size of each is also larger.}
+		\label{fig:ffnn_:_200_node_layer_motor_imagery}
+	\end{subfigure}
+	\caption{Manually designed networks.}
+	\label{fig:ffnn_:_networks}
+\end{figure}
+
+Instead, the trialling of network architectures designed with more varied shapes and larger epoch counts began. Quickly, better accuracy's started to appear, the most promising of which where shown with networks that contained at least 2 or more hidden layers, and where the first layers node count exceeded 200.
+
+This again was not much of a success, even with the higher accuracy, sitting at around 90\%, when compared against unseen (validation) data the accuracy became equal to that of random chance.
+
+
 \subsubsection{Keras Tuner}
+Due to the lack of accuracy given by the manually designed FFNN's: the unlikely chance that with the continued testing against human designed networks resulting in any reasonably accurate networks; and the slow speed in which fairly testing these networks required; it was clear that another solutions was again needed. This solution emerged as hyper-parameter optimisation, specifically the library Keras-Tuner \ccite{omalley2019kerastuner}. Keras-Tuner allows for the automation of neural networks by generating and training through the use searching algorithms. 
+There are 3 types of tuner algorithms supported by Keras-Tuner, `Random Search', `Hyperband' and `Basyesian Optimisation'. Tests where performed over each of these tuners to test the creation of each of the three FFNN's needed for the project. After a while the choice was made to keep basyesian optimisation tuner for the networks as it showed the most success in predicting a high validation accuracy.
+
+The inputs used for the network tuners are as shown in \reftable{tab:ffnn_:_search_parameters}. Having ran this for a while for each of the networks....
+
+\commentintext{Talk about how the networks performed, ANN for motor imagery is rubbish, but the eye one is decent}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ |c|c| }
+		\hline
+		
+		Parameter 								& Value 							\\	\hline \hline
+		
+		Objective 								& `val\_accuracy' 					\\ 	\hline
+		Layers 									& 1 to 6 							\\ 	\hline
+		Nodes 									& 4 to 512, in steps of 4 			\\  \hline
+		Hidden layer activation function 		& `relu', `sigmoid', `softmax' 		\\	\hline
+		Output layer activation function 		& `relu', `sigmoid', `softmax' 		\\	\hline
+		Learning rate 							& 0.01, 0.001, 0.0001 				\\	\hline
+		Early stopping callback rate			& `val\_loss' 						\\  \hline
+		Early stopping patience					& 3 								\\	
+		
+		\hline		
+	\end{tabular}
+	\caption{Input parameters used for tuning network search generation.}
+	\label{tab:ffnn_:_search_parameters}
+\end{table}
+
+
+
 \subsubsection{Baracuda}	
 
+\commentintext{How where the networks put into Unity}
+\commentintext{What was my initial test case, the box moving?}
 
+
+
+
+
+\pagebreak
 %The Games
+\subsection{The Implementation of the Game}
+
+
+Though this project is designed to work on a VR headset with real-time EEG and EMG data provided, testing resulted in building the project for Windows PC's with the a mouse / keyboard input system, alongside running the offline EEG and EMG data to supply a valid prototyping environment without the need for the access to both equipment and participants.  
+
+\commentintext{Player State Machine?}
+\commentintext{Moving controls, per state?}
+\commentintext{parametric look function?}
+\commentintext{How the networks where used?}
+\commentintext{Blocking of network inputs for blinking?}
+\commentintext{Visual indecation of player ANN states, blink idecator and the focus bar?}
+\commentintext{Lerping of everything?}
+\commentintext{growth rate?}
+
+\commentintext{Spawning of levels?}
+\commentintext{level interaction code?}
 
 
 
-Though this project is designed to work on a VR headset with real-time EEG and EMG data provided, testing resulted in building the project for Windows PC's with a mouse / keyboard input system, alongside offline EEG and EMG data.  
 
 
 
@@ -202,76 +324,6 @@ Though this project is designed to work on a VR headset with real-time EEG and E
 
 
 
-
-
-
-
-
-
-\begin{comment}
-\pagebreak
-\subsection{Introduction to the project}
-The project was created in the Unity game engine, the two mini-games chosen where a simple repeating sequence game and a implementation of the game Breakout \addcitation{}. The sequence game was chosen due to it not requiring accurate or high response inputs, this allowed it to be perfect for the possibly inaccurate readings of motor imagery. While breakout was chosen due to it's simplicity and ease for increasing game difficulty through the changing of ball speed. 
-
-\subsubsection{Mini-game: Sequence}
-In the repeating sequence game, players would be required to repeat back a sequence of colours shown to them by 'activating' similarly coloured crystals. This was done using a combination of 'Motor Imagery EEG' and EMG, where the player would be given control over an avatars arms by looking in a direction and thinking about moving one half of there body. This would trigger a response from the game, having there avatar reach forward and touch a crystal.
-
-\addfigure %Add image of the minigame
-
-\subsubsection{Mini-game: Breakout}
-In Breakout, the player is given direct control of the paddle using the 'A' and 'D' on the keyboard. When the player is giving a lower level of focus the ball will increase its velocity, while the opposite is true when the player begins to focus more. Much like the original, the aim of the game is to destroy all the blocks.
-
-\addfigure %Add image of the minigame
-
-\pagebreak
-\subsection{EEG and EMG }
-\subsubsection{Keras and Keras Tuner}
-To decipher the meaning given from the EEG and EMG data, the solution of a Neural Network was required. This was accomplished using a Python library called Keras, an interface library for Google's TensorFlow library. Motor Imagery data from \addcitation{}, was then downloaded, this data was originally in .edf format and was first converted to the .csv format for easier human readability, after which was then supplied to the networks for training. 
-
-\hfill
-
-This however gave some what lacklustre accuracy when used, so in addition the use of hyper-parameter optimisation was used. The library used in this project to do this was KerasTuner, the purpose of which was to search for the optimal design of a network: changing the types of activation functions, number of layers and size of these layers; to allow for a much more accurate model.
-
-\addfigure %Add image of the networks training
-
-\subsubsection{Barracuda}
-After creating several reasonably accurate models using \addcitation{} and \addcitation{} data. The next step was to import these models into Unity. Unity has its own built in packages for Neural Networks, these being Unity Machine Learning Agents and Barracuda. The former focuses mainly on NPC AI, while the later can be used for almost any type of network, however required said network be in the .ONNX format. Due to the usage of this projects ANN's being classification based, Barracuda was the obvious choice, however the Keras produces networks of the .h5 format, as such a conversion was required. To do this, another python program was written to convert between .h5 and .ONNX models using the Keras2Onnx library. With this a script could finally be written within Unity to allow for the in-game real-time usage of these models.
-
-\pagebreak
-\subsection{LSL}
-\subsubsection{Integration}
-To receive the data from the input devices, the use of the LSL protocol was required. Specifically for this project the 'liblsl-Csharp' package \addcitation{} was used. This was imported into Unity and several scripts where then written to allow for the listening and broadcasting of different data types. To test whether this was working different devices on the network where then used to display the data using the 'Brain Vision LSL Viewer' application.
-
-\addfigure %Add image of the position tracker LSL scripts.
-
-\subsubsection{Online Data Spoofing}
-With the cross-device communication working, the next stage was to create a script for spoofing potential online data. This would be used to see if the neural networks generated by Keras Tuner where working in the engine correctly. Offline data supplied by the dataset used previously from the network's training, though not used directly in it, was then attached to Unity through a script, in the format of .csv's. Each frame, this script would publish the next lines content over the network, allowing for faked online EEG and EMG data.
-
-\hfill
-
-\subsubsection{Testing the models}
-
-
-
-\addfigure %Add image of the cube that moves for left and right.
-
-\break
-\begin{itemize}
-  \item 1)	Setup of Unity enviroment for VR (Describe the game).
-  \item 1.5) Show figure of game, and input devices
-  \item 2)	Two Mini Games (Sequence) - Introduction
-  \item 2.5) Show figure of devices,
-  \item 3)	Two Mini Games (Breakout) - Introduction
-  \item 2.5) Show figure of device and how they connect and are used,
-  \item 4)	I began by using python - (tensor flow, keras) - to classify EEG data using motor imagery to decide between a left and right motion.
-  \item 5)	To get a more accurate network I looked into KerasTuner, a hyper peramiter optimisation library for Keras.
-  \item 6)	LSL streams used for aquiring and writing data.
-  \item 7)	Offline processing and spoofing "online data" (reading CSV files) and writing the data over the LSL network.
-  \item 8)	Combining Barracuda with LSL.
-  \item 9)	Sequence games implementation.
-  \item 10)	Breakouts implementation.
-\end{itemize}
-\end{comment}
 
 
 
@@ -280,9 +332,11 @@ With the cross-device communication working, the next stage was to create a scri
 \section{Conclusion and Future Work}
 
 \subsection{Conclusion}
+I conclude something...
+
 
 \subsection{Future Work}			% - 300 Words
-
+I want to do this in the future....
 
 
 		% - 300 Words
