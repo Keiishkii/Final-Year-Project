@@ -8,23 +8,21 @@ from tensorflow.keras import layers
 from sklearn.preprocessing import LabelEncoder
 from tqdm import tqdm
 
-#%%########################
-#   - Clear Console -     #
-###########################
+#%%######################
+#   - Clear Console -   #
+#########################
+# Clears the console on starting the python program.
 print("\033[H\033[J") 
 
-print(tensorflow.version.VERSION)
-print(tensorflow.test.is_built_with_cuda())
-print("Num GPUs Available: ", len(tensorflow.config.list_physical_devices('GPU')))
-
-#tensorflow.debugging.set_log_device_placement(True)
 
 
 
-#%%###########################
-#   - Global Variables -     #
-##############################
-#trainingDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
+
+#%%#########################
+#   - Global Variables -   #
+############################
+# Stores the paths to the training data, and validation data paths as global variables.
+# Also gives the saving path of the model as a global string
 trainingDataPath = "D:\My Data\[ EEG Data ]\[ CSV Files ]\\"
 trainingDataFileNames = [
     #"S001R04",
@@ -41,7 +39,6 @@ trainingDataFileNames = [
     #"S004R12",
     ]
 
-#validationDataPath = "D:\- [ Charlie Lloyd-Buckingham ] -\- [ Python - Training Data ] -\- [ CSV Files ] -\\"
 validationDataPath = "D:\My Data\[ EEG Data ]\[ CSV Files ]\\"
 validationDataFileNames = [
     "S001R04",
@@ -63,9 +60,14 @@ modelSavingName = "Motor Imagery Right Hand Model"
 
 
 
-#%%####################
-#   - Functions -     #
-#######################
+#%%#########################
+#   - FUNCTION DEFINES -   #
+############################
+#%%#########################
+#   - Build FFNN Model -   #
+############################
+# Builds the FFNN hyper parameters model architecture.
+# Used for against the search algorythms to find the highest accuracy networks.
 def build_model(hp):
     model = keras.Sequential()
     
@@ -94,7 +96,11 @@ def build_model(hp):
     return model
 
 
-
+#%%#################################
+#   - Get Data and Maker Lists -   #
+####################################
+# Gets the marker data and EEG data from the CSV files, and stors each sample into a 2 dimensional list.
+# Removes the first element of the list, as this is used as the heading row within the CSV
 def get_data_and_marker_lists(path, filenames):
     combinedDataList = numpy.empty((0, 64)).astype(float)
     combinedMarkerList = numpy.empty((0), str)
@@ -134,7 +140,10 @@ def get_data_and_marker_lists(path, filenames):
     return combinedDataList, combinedMarkerList
 
 
-
+#%%###########################
+#   - Encode Marker Data -   #
+##############################
+# Encodes the values within the marker list to an interger list.
 def encode_string_list(stringList):
     
     for i in range(0, stringList.size):
@@ -145,7 +154,11 @@ def encode_string_list(stringList):
     return encoder.fit_transform(stringList)
 
 
-
+#%%################################
+#   - Clean Data For Training -   #
+###################################
+# Removes a group of indexes from the start of each data set.
+# This is done to avoid the miscaricterisation of the data for non-blinks (at the start of a blink) to be considered a blink.
 def clean_data(dataList, markerList):
     if len(markerList) > 0:
         markerIndexes = [markerList[0],]    
@@ -172,71 +185,103 @@ def clean_data(dataList, markerList):
         
     return dataList, markerList
 
+
 #%%################################
 #   - Read in Training Data -     #
 ###################################
-print("\n - Creating training and validation lists. \n")
+# Opens the file paths and upacks the CSV files into there own lists for marker data and EEG data.
+def load_training_data():
+    print("\n - Creating training and validation lists. \n")
+    
+    print("Creating Training Data Lists.")
+    trainingDataList, trainingMarkerList = get_data_and_marker_lists(trainingDataPath, trainingDataFileNames)
+    encodedTrainingMarkerList = encode_string_list(trainingMarkerList)
+    
+    trainingDataList, encodedTrainingMarkerList = clean_data(trainingDataList, encodedTrainingMarkerList)
+    
+    print("Creating Validation Data Lists.")
+    validationDataList, validationMarkerList = get_data_and_marker_lists(validationDataPath, validationDataFileNames)
+    encodedValidationMarkerList = encode_string_list(validationMarkerList) 
+    
+    validationDataList, encodedValidationMarkerList = clean_data(validationDataList, encodedValidationMarkerList)
+    
+    return trainingDataList, encodedTrainingMarkerList, validationDataList, encodedValidationMarkerList
 
-print("Creating Training Data Lists.")
-trainingDataList, trainingMarkerList = get_data_and_marker_lists(trainingDataPath, trainingDataFileNames)
-encodedTrainingMarkerList = encode_string_list(trainingMarkerList)
+#%%#####################################
+#   - Generate and Train The Model -   #
+########################################
+# Runs the training on the network for a series of possible networks using Keras Tuner.
+# The aim is to find the best network out of many.
+def generate_network(trainingDataList, encodedTrainingMarkerList, validationDataList, encodedValidationMarkerList):
+    print("\n - Generating Network. \n")
+    
+    tuner = keras_tuner.BayesianOptimization(
+         hypermodel = build_model,
+         objective = 'accuracy',
+         max_trials = 50,
+         
+         #num_initial_points = 20
+         #alpha = 1e-4,
+         #beta = 2.6,
+         #seed = 1,
+         #tune_new_entries = (True),
+         #allow_new_entries = (True),
+         
+         #distribution_strategy = tensorflow.distribute.MirroredStrategy(),
+         
+         directory = 'Model_Generation',
+         project_name = 'Motor_Imagery_Classification',
+         overwrite = True
+    )
+    
+    tuner.search(    
+        trainingDataList, 
+        encodedTrainingMarkerList, 
+        epochs = 50, 
+        validation_data = (validationDataList, encodedValidationMarkerList),
+        callbacks = [tensorflow.keras.callbacks.EarlyStopping('loss', patience=3)]
+    )
+    
+    model = tuner.get_best_models()[0]
+    model.summary()
+    
+    return model
 
-trainingDataList, encodedTrainingMarkerList = clean_data(trainingDataList, encodedTrainingMarkerList)
 
-print("Creating Validation Data Lists.")
-validationDataList, validationMarkerList = get_data_and_marker_lists(validationDataPath, validationDataFileNames)
-encodedValidationMarkerList = encode_string_list(validationMarkerList)
-
-
-
-validationDataList, encodedValidationMarkerList = clean_data(validationDataList, encodedValidationMarkerList)
-
-
-
-
-
-#%%###########################
-#   - Generate Network -     #
-##############################
-print("\n - Generating Network. \n")
-
-tuner = keras_tuner.BayesianOptimization(
-     hypermodel = build_model,
-     objective = 'accuracy',
-     max_trials = 50,
-     
-     #num_initial_points = 20
-     #alpha = 1e-4,
-     #beta = 2.6,
-     #seed = 1,
-     #tune_new_entries = (True),
-     #allow_new_entries = (True),
-     
-     #distribution_strategy = tensorflow.distribute.MirroredStrategy(),
-     
-     directory = 'Model_Generation',
-     project_name = 'Motor_Imagery_Classification',
-     overwrite = True
-)
-
-tuner.search(    
-    trainingDataList, 
-    encodedTrainingMarkerList, 
-    epochs = 50, 
-    validation_data = (validationDataList, encodedValidationMarkerList),
-    callbacks = [tensorflow.keras.callbacks.EarlyStopping('loss', patience=3)]
-)
-
-model = tuner.get_best_models()[0]
-model.summary()
+#%%#######################
+#   - Save The Model -   #
+##########################
+# Saves the model to the data path provided as a global variable.
+def save_model(model):
+    print("\n - Saving the tensorflow model. \n")
+    
+    model.save(f"{modelSavingDataPath}{modelSavingName}.h5")
+    print(f"Data saved to '{modelSavingDataPath}{modelSavingName}.h5'")
 
 
 
 
-#%%#############################
-#   - Save The Model -     #
-################################
-print("\n - Saving the tensorflow model. \n")
 
-model.save(f"{modelSavingDataPath}{modelSavingName}.h5")
-print(f"Data saved to '{modelSavingDataPath}{modelSavingName}.h5'")
+#%%################
+#   - Program -   #
+###################
+# Loads the training and validation data for the FFNN model
+# Generates the model using Keras Tuner
+# Saves the model
+_trainingDataList, _encodedTrainingMarkerList, _validationDataList, _encodedValidationMarkerList = load_training_data()
+
+_model = generate_network(_trainingDataList, _encodedTrainingMarkerList, _validationDataList, _encodedValidationMarkerList)
+save_model(_model)
+
+
+
+
+
+
+
+
+
+
+
+
+

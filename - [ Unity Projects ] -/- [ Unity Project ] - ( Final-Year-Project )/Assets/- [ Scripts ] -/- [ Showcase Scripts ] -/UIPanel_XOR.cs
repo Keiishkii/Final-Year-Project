@@ -9,6 +9,8 @@ using Button = UnityEngine.UIElements.Button;
 
 using _Barracuda;
 
+// A VR interactable showcase for an XOR neural network.
+// Displayed on top of a world space Canvas.
 public class UIPanel_XOR : MonoBehaviour
 {
     [SerializeField] private List<Image> _inputAImages;
@@ -28,7 +30,7 @@ public class UIPanel_XOR : MonoBehaviour
 
 
 
-
+    // Sets up the network and renders the graphics of the world space canvas to the base state.
     private void Awake()
     {
         _modelXOR = new Barracuda_Model { model = _model };
@@ -39,7 +41,7 @@ public class UIPanel_XOR : MonoBehaviour
     }
 
 
-
+    // Using the neural network for XOR data, predicts the result of a set of inputs controlled through the canvas buttons.
     private void CalculateOutputState()
     {
         List<float> inputFloats = new List<float> {_inputAState ? 0 : 1, _inputBState ? 0 : 1};
@@ -54,6 +56,7 @@ public class UIPanel_XOR : MonoBehaviour
         outputTensor.Dispose();
     }
 
+    // Redraws the UI based on the new data stored within the class.
     private void UpdateUIGraphics()
     {
         Color inputA = (_inputAState) ? _activeColour : _nonactiveColour;
@@ -73,7 +76,7 @@ public class UIPanel_XOR : MonoBehaviour
     }
     
     
-    
+    // On pressing a button on top of the canvas, the network is re-processed and the output is shown.
     public void InputPressed(int inputID)
     {
         switch (inputID)
@@ -95,6 +98,7 @@ public class UIPanel_XOR : MonoBehaviour
         }
     }
 
+    // Clears up the worker
     private void OnDestroy()
     {
         _modelXOR.worker?.Dispose();

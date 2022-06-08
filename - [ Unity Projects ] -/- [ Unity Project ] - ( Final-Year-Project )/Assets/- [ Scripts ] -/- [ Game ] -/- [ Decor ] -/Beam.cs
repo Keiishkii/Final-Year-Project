@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Integration script for the path based particle system package.
+// Stores positions for the path.
 public class Beam : MonoBehaviour
 {
     [SerializeField] private Transform _start;

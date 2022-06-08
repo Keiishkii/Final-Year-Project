@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace _Barracuda
 {
+    // The custom inspector of the testing class Barracuda_XORModel_Editor, this is used to manually test the output of an XOR network.
     [CustomEditor(typeof(Barracuda_XORModel))]
     public class Barracuda_XORModel_Editor : Editor
     {
@@ -25,6 +26,7 @@ namespace _Barracuda
 
 
 
+        // Redraws the inspector
         public override void OnInspectorGUI()
         {
             Barracuda_XORModel targetScript = (Barracuda_XORModel) target;
@@ -40,6 +42,8 @@ namespace _Barracuda
             if (Application.isPlaying)
             {
                 EditorGUILayout.Space(5);
+                
+                // Using the inputs from the inspector, runs the neural network and outputs its result.
                 if (GUILayout.Button("Calculate"))
                 {
                     targetScript.model.SetupModel();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+// Cosmetic class for giving objects within the game world a slight hovering motion.
 public class Hover : MonoBehaviour
 {
     [HideInInspector] public Vector3 basePosition;
@@ -25,7 +26,8 @@ public class Hover : MonoBehaviour
     private float[] _randomisedPositionOffsets;
     
     
-    
+    // Generates a randomised set of offset values to be used later within the script.
+    // Also sets the base state of the game object.
     void Start()
     {
         _transform = transform;
@@ -50,6 +52,7 @@ public class Hover : MonoBehaviour
         };
     }
 
+    // Using the basePosition and baseTransform variables set at start along side an progressive offset in which smoothly changes over time, the position is set for the game object.
     void Update()
     {
         float time = Time.timeSinceLevelLoad;

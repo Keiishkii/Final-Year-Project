@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace CrystalSequence
 {
+    // The colour states that a crystal can be.
     public enum CrystalColours_Enum
     {
         RED,

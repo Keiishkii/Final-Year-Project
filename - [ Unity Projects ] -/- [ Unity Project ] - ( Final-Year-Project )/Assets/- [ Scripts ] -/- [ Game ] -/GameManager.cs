@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+// The global script for loading into the game and loading new scenes.
+// This class manages the exciting of the game too.
 public class GameManager : MonoBehaviour
 {
     public InputActionReference _onQuit;
@@ -12,7 +14,8 @@ public class GameManager : MonoBehaviour
     private string _subSceneName;
     
     
-    // Start is called before the first frame update
+    // Loads in the main menu on start in adaptive mode, so that this can be removed at a later time when entering the mini-games.
+    // Also subscribes the script to the 'esc' key for the exiting of the program.
     void Start()
     {
         SceneManager.LoadScene(_mainMenuSceneName, LoadSceneMode.Additive);
@@ -21,6 +24,7 @@ public class GameManager : MonoBehaviour
         _onQuit.action.started += QuitGame;
     }
 
+    // Removes the previous sub scene and loads in a new scene on top of the base scene.
     public void LoadNewSubScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour
         _subSceneName = sceneName;
     }
 
+    // Closes the game.
     private void QuitGame(InputAction.CallbackContext context)
     {
         Application.Quit();

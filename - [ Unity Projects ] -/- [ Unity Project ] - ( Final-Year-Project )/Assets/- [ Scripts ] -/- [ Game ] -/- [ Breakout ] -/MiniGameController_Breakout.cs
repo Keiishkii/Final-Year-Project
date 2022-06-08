@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// The control script for the mini-game Breakout
+// This is used to spawn in all aspects of the mini-game while also maintaining game state throughout play, such as when the board is clear.
 public class MiniGameController_Breakout : MonoBehaviour
 {
     [SerializeField] private Transform _blocksFolder;
@@ -54,7 +56,7 @@ public class MiniGameController_Breakout : MonoBehaviour
     }
 
     
-
+    // Calls the spawner functions for all needed game objects, then calls a transition for the players current state.
     private void Start()
     {
         SpawnFocusRock();
@@ -71,11 +73,13 @@ public class MiniGameController_Breakout : MonoBehaviour
         }
     }
 
+    // Spawns in the focus rock, based on the prefab.
     private void SpawnFocusRock()
     {
         _focusRock = Instantiate(_focusRockPrefab, _focusTabletSpawnLocation, Quaternion.Euler(new Vector3(-20, 180, 0)), _transform);
     }
     
+    // Spawns in the particle spawners, and the game objects for decorating the game board.
     private void SpawnDecor()
     {
         Beam beamComponent = null;
@@ -84,18 +88,21 @@ public class MiniGameController_Breakout : MonoBehaviour
         float offset = 1.125f;
         float seaLevelOffset = 2.1f;
         
+        // Spawns a particle system in which the flow of particles moves from point Start, through point Middle and ends at point End.
         _leftBeam = Instantiate(_beamPrefab, min, Quaternion.identity, _transform);
         beamComponent = _leftBeam.GetComponent<Beam>();
         beamComponent.Start = new Vector3(min.x, seaLevelOffset + min.y + offset, centre.z * Mathf.Cos(min.x * _curve));
         beamComponent.Middle = new Vector3(min.x, centre.y, centre.z * Mathf.Cos(min.x * _curve));
         beamComponent.End = new Vector3(min.x, max.y - offset, centre.z * Mathf.Cos(min.x * _curve));
 
+        // Spawns a particle system in which the flow of particles moves from point Start, through point Middle and ends at point End.
         _rightBeam = Instantiate(_beamPrefab, max, Quaternion.identity, _transform);
         beamComponent = _rightBeam.GetComponent<Beam>();
         beamComponent.Start = new Vector3(max.x, seaLevelOffset + min.y + offset, centre.z * Mathf.Cos(max.x * _curve));
         beamComponent.Middle = new Vector3(max.x, centre.y, centre.z * Mathf.Cos(max.x * _curve));
         beamComponent.End = new Vector3(max.x, max.y - offset, centre.z * Mathf.Cos(max.x * _curve));
         
+        // Spawns a particle system in which the flow of particles moves from point Start, through point Middle and ends at point End.
         _topBeam = Instantiate(_beamPrefab, max, Quaternion.identity, _transform);
         beamComponent = _topBeam.GetComponent<Beam>();
         beamComponent.Start = new Vector3(min.x + offset, max.y, centre.z * Mathf.Cos(min.x * _curve));
@@ -123,6 +130,7 @@ public class MiniGameController_Breakout : MonoBehaviour
         _topRightEmitter = Instantiate(_doubleEmitterPrefab, spawnPosition, spawnRotation, _transform);
     }
 
+    // Spawns the ball game object for the mini-game.
     private void SpawnBall()
     {
         Vector3 position = new Vector3(0, _yPositionOfBall, _breakoutBounds.center.z);
@@ -131,6 +139,7 @@ public class MiniGameController_Breakout : MonoBehaviour
         _ball = Instantiate(_ballPrefab, position, rotation, _transform);
     }
     
+    // Spawns the paddle game object for the mini-game.
     private void SpawnPaddle()
     {
         Vector3 position = new Vector3(0, _yPositionOfPaddle, _breakoutBounds.center.z);
@@ -139,6 +148,9 @@ public class MiniGameController_Breakout : MonoBehaviour
         _paddle = Instantiate(_paddlePrefab, position, rotation, _transform);
     }
 
+    // Spawns the blocks on top of the game board.
+    // This is set up using the input layers list, in which the game can spawn in any set of blocks on the board programmatically.
+    // Spawning is also curved around the game boards curve value, this is to make the game board more visible.
     private void SpawnBlocks()
     {
         float stepDistance = 1.5f;
@@ -158,8 +170,9 @@ public class MiniGameController_Breakout : MonoBehaviour
         }
     }
 
-
-
+    
+    // Calculates the nearest block from a given position, used by the BreakoutBall script for its auto-targeting cool down.
+    // Iterates over each block currently active on the game board and stores its distance.
     public GameObject GetNearestBlock(Vector3 ballPosition)
     {
         GameObject nearestBlock = null;
@@ -186,7 +199,7 @@ public class MiniGameController_Breakout : MonoBehaviour
     }
 
 
-    
+    // Uses a block game objects InstanceID to remove it from the dictionary and destroy it.
     public void DestroyBlock(int instanceID)
     {
         if (_blocks.ContainsKey(instanceID))
@@ -205,6 +218,9 @@ public class MiniGameController_Breakout : MonoBehaviour
         }
     }
     
+    
+    // Called when all blocks are destroyed or the ball has reached below the game bounds and resulted in the mini-game failure.
+    // Destroys all game objects related to the game and then spawns in the main menu tablet and level results.
     public void EndMiniGame(bool winConditionMet)
     {
         Destroy(_ball);
@@ -232,7 +248,7 @@ public class MiniGameController_Breakout : MonoBehaviour
     }
     
     
-
+    // Draws the positions of all objects within the game, used to debug and design the level for playing.
     private void OnDrawGizmos()
     {
         DrawGizmoBreakoutBounds();
@@ -241,16 +257,19 @@ public class MiniGameController_Breakout : MonoBehaviour
         DrawBall();
     }
 
+    // Draws the gizmo of the balls spawn position.
     private void DrawBall()
     {
         Gizmos.DrawSphere(new Vector3(0, _breakoutBounds.min.y + _yPositionOfBall, _breakoutBounds.center.z), 0.25f);
     }
     
+    // Draws the gizmo of the paddles spawn position.
     private void DrawPaddle()
     {
         Gizmos.DrawCube(new Vector3(0, _breakoutBounds.min.y + _yPositionOfPaddle, _breakoutBounds.center.z),new Vector3(1f, 0.5f, 0.25f));
     }
 
+    // Draws the gizmo of each blocks spawn position.
     private void DrawBlocks()
     {
         float stepDistance = 1.5f;
@@ -265,6 +284,7 @@ public class MiniGameController_Breakout : MonoBehaviour
         }
     }
 
+    // Renders the bounds of the player area and the curve the player area follows..
     private void DrawGizmoBreakoutBounds()
     {
         int resolution = 50;

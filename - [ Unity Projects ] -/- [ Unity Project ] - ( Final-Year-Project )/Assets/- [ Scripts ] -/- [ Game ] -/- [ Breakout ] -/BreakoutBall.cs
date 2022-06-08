@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random; 
 
+// The component script for the ball game objects used within the breakout mini-game.
 public class BreakoutBall : MonoBehaviour
 {
     private Transform _transform;
@@ -52,6 +53,8 @@ public class BreakoutBall : MonoBehaviour
         StartCoroutine(Begin());
     }
 
+    // The starting coroutine, this gives the logic of the game a delay.
+    // Waiting 1.5 seconds after the balls spawn. This allows for the player to get ready when playing the game without being shoved straight into gameplay.
     private IEnumerator Begin()
     {
         yield return new WaitForSeconds(1.5f);
@@ -64,6 +67,11 @@ public class BreakoutBall : MonoBehaviour
         ResetBallTargetingCountdown();
     }
 
+    
+    
+    
+    // After a period of time that the ball has neither hit the paddle, or a block.
+    // The ball will target the closest block and move towards it. This designed in this way to avoid situations where the ball might get stuck infinitely bouncing.
     private IEnumerator TargetBlock()
     {
         yield return new WaitForSeconds(_autoTargetCooldown);
@@ -79,6 +87,9 @@ public class BreakoutBall : MonoBehaviour
     
     
     
+    
+    // Calculates the ball speed based on the players focus activation, the output of the neural network analysing the players focus.
+    // After which a bounds check occurs in which the ball is tested to see if it is still within the games player area, then the ball is moved.
     private void FixedUpdate()
     {
         float targetSpeed = Mathf.Lerp(_minMovementSpeed, _maxMovementSpeed, _player.focusActivation);
@@ -91,6 +102,7 @@ public class BreakoutBall : MonoBehaviour
         UpdateBallTransform(ref position, ref rotation);
     }
 
+    // Checks to see if the ball is outside of the games play area, then reflects its velocity if it is.
     private void BoundsCheck(ref Vector3 position)
     {
         if (_gameBounds.max.y <= position.y)
@@ -115,6 +127,7 @@ public class BreakoutBall : MonoBehaviour
         }
     }
     
+    // Moves the balls position based on its velocity.
     private void UpdateBallTransform(ref Vector3 position, ref Quaternion rotation)
     {
         Vector2 delta = _velocity * (Time.fixedDeltaTime * _movementSpeed);
@@ -127,7 +140,7 @@ public class BreakoutBall : MonoBehaviour
     }
     
     
-    
+    // Check for if the ball is colliding with either the blocks, decor or the paddle. The all is then reflected.
     private void OnTriggerStay(Collider other)
     {
         switch (other.tag)
@@ -151,6 +164,7 @@ public class BreakoutBall : MonoBehaviour
         }
     }
 
+    // Restarts the count down given for the ball auto targeting to take over.
     private void ResetBallTargetingCountdown()
     {
         if (_targetCoroutine != null) StopCoroutine(_targetCoroutine);
@@ -159,6 +173,7 @@ public class BreakoutBall : MonoBehaviour
         StartCoroutine(_targetCoroutine);
     }
     
+    // Re calculates the balls velocity based on the direction of the hit.
     private void OnBallCollision(Transform otherTransform)
     {
         Vector2 position = _transform.position;

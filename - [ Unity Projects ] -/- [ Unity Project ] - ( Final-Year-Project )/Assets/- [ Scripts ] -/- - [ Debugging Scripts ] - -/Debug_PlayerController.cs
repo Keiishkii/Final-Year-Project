@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
+// Used as a way of interacting with the mini-games without the need for the EEG and EMG data streams, all control is done through mouse and keyboard
 public class Debug_PlayerController : Player_Interface
 {
     private const float _maxHeightOffset = 1.35f;
@@ -59,6 +60,11 @@ public class Debug_PlayerController : Player_Interface
         _mousePositionInputAction.action.started -= OnMouseDeltaChange;
     }
 
+    
+    
+    
+    
+    // Listener for the mouse motion variable. On a change in value this function is called and will recalculate the camera's look position.
     private void OnMouseDeltaChange(InputAction.CallbackContext value)
     {
         Vector2 mouseInput = value.ReadValue<Vector2>();
@@ -86,6 +92,7 @@ public class Debug_PlayerController : Player_Interface
         }
     }
 
+    // Recalculates the values used within the avatars IK, and sets them in their components
     private void Update()
     {
         _avatarTransform.rotation = Quaternion.Lerp(_avatarTransform.rotation, _desiredAvatarRotation, 0.025f);
@@ -148,6 +155,7 @@ public class Debug_PlayerController : Player_Interface
         }
     }
 
+    // Draws the players reach target for its IK
     private void OnDrawGizmos()
     {
         Vector3 position = transform.position;

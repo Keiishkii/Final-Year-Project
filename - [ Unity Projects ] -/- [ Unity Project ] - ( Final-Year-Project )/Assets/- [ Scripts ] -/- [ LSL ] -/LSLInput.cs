@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace _LSL
 {
+    // Abstract class for LSL input stream components. 
+    // Used to find and store the data returned by an LSL input stream.
     public abstract class LSLInput<T> : MonoBehaviour
     {
         [SerializeField] protected string _streamName = "A";

@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace _LSL
 {
+    // LSL output stream for writing position data across the network.
     public class LSLOutputStream_PositionData : LSLOutput<float>
     {
+        // Generates an regular LSL stream to write position data too.
         private void Start()
         {
             float sampleRate = (1 / Time.fixedDeltaTime);
@@ -21,6 +23,7 @@ namespace _LSL
             _currentSample = new float[3];
         }
 
+        // Creates and writes the position data to the network.
         private void FixedUpdate()
         {
             Vector3 pos = gameObject.transform.position;
@@ -30,9 +33,8 @@ namespace _LSL
 
             PushOutput();
         }
-
-
-
+        
+        // Pushes the data to the network
         private void PushOutput()
         {
             _outlet.push_sample(_currentSample);

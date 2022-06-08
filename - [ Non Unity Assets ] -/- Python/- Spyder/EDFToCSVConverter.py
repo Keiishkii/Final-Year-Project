@@ -6,6 +6,7 @@ from tqdm import tqdm
 #%%########################
 #   - Clear Console -     #
 ###########################
+# Clears the console on starting the python program.
 print("\033[H\033[J") 
 
 
@@ -15,8 +16,10 @@ print("\033[H\033[J")
 #%%###########################
 #   - Global Variables -     #
 ##############################
+# Global variables indecating the reading and writing paths for the program.
+# These the input paths are used for the edf files and the ouput paths are where the csv's are written too. 
 inputDataPath = "D:\My Data\[ EMG Data ]\[ EDF files ]\\"
-outputDataPath = "D:\My Data\[ EMG Data ]\[ EDF files ]\\"
+outputDataPath = "D:\My Data\[ EMG Data ]\[ CSV files ]\\"
 
 dataFileNames = [
     "S001E01",
@@ -38,18 +41,27 @@ dataFileNames = [
     ]
 
 
-#%%#######################
-#   - Opening File -     #
-##########################
+
+
+
+#%%#########################
+#   - FUNCTION DEFINES -   #
+############################
+#%%#####################
+#   - Opening File -   #
+########################
+# Opens the file using the EDF Reader package.
 def open_file(fileName):
     print("\n - Reading in the file. \n")    
     
     return pyedflib.EdfReader(inputDataPath + fileName + ".edf")
  
     
-#%%##############################
-#   - Organising EEG Data -     #
-#################################   
+#%%############################
+#   - Organising EEG Data -   #
+###############################   
+# Attempts to unpack the EDF file to gain access to the data recorded data streams.
+# On doing so stores and the returns this as a list.
 def organise_data(reader):
     print("\n - Organising EEG data from file. \n")
     
@@ -65,9 +77,11 @@ def organise_data(reader):
     return signalLabels, transposedData
 
 
-#%%#############################
-#   - Organising Markers -     #
-################################
+#%%###########################
+#   - Organising Markers -   #
+##############################
+# Attempts to upack the EDF files to gain access to the markers stored within.
+# In doing so will return a list of markers, one for each of the samples given.
 def organise_markers(reader, transposedData):
     print("\n - Adding markers to the CSV. \n")
     
@@ -97,9 +111,10 @@ def organise_markers(reader, transposedData):
     return markerArray
             
     
-#%%#########################
-#   - Writing to CSV -     #
-############################
+#%%#######################
+#   - Writing to CSV -   #
+##########################
+# Writes the recorded data to ta CSV file, where each colomn is a channel, and each row is a sample.
 def write_data_to_csv(fileName, signalLabels, transposedData):
     print("\n - Writing EEG data to CSV. \n")
     
@@ -112,7 +127,7 @@ def write_data_to_csv(fileName, signalLabels, transposedData):
         writer.writerow(i)
     
     
-    
+# Writes the marker list to a CSV filed with the colomn heading of 'Markers'
 def write_markers_to_csv(fileName, markerArray):
     print("\n - Writing EEG markers to CSV. \n")
     csvFile = open(outputDataPath + fileName + "_Markers.csv", "w", newline = '')
@@ -124,18 +139,25 @@ def write_markers_to_csv(fileName, markerArray):
         writer.writerow(i)
     
     
-#%%#######################
-#   - Closing File -     #
-##########################
+#%%#####################
+#   - Closing File -   #
+########################
+# Closes the file
 def close_file(reader):
     print("\n - Closing file. \n")
     
     reader.close()
     
     
-#%%##################
-#   - Program -     #
-#####################
+    
+    
+    
+#%%################
+#   - Program -   #
+###################
+# A program for reading in and converting an EDF file for offline data to a CSV file.
+# Itterates over a series of EDF files an then unpacks there data into lists.
+# Using these lists the program then rewrites them as CSV's
 for fileName in tqdm(dataFileNames):
     reader = None
     try:

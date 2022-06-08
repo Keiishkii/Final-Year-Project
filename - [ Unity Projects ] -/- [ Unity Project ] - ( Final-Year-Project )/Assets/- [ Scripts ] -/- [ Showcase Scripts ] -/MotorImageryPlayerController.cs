@@ -6,6 +6,8 @@ using _LSL;
 using Unity.Barracuda;
 using UnityEngine;
 
+// Showcase script for demonstrating the reading and processing of EEG motor imagery data.
+// Does so by moving a game object left and right depending on what the networks predict to be the correct answer.
 [RequireComponent(typeof(LSLInputStream_FloatArray))]
 public class MotorImageryPlayerController : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class MotorImageryPlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     
     
-    
+    // Sets up the neural network and finds the components needed for accessing the data.
     private void Awake()
     {
         _lslInputStreamRealTimeData = GetComponent<LSLInputStream_FloatArray>();
@@ -24,7 +26,7 @@ public class MotorImageryPlayerController : MonoBehaviour
     }
 
     
-    
+    // Each frame sampled data is fed into a neural network and the position of the game object is moved accordingly.
     private void Update()
     {
         List<float[]> samples = _lslInputStreamRealTimeData.Samples;
@@ -46,12 +48,12 @@ public class MotorImageryPlayerController : MonoBehaviour
                     case 1:
                     {
                         Debug.Log("<color=#1BA>Moving Left</color>");
-                        _rigidbody.AddForce(new Vector3(0.25f, 0, 0));
+                        _rigidbody.AddForce(new Vector3(0.75f, 0, 0));
                     } break;
                     case 2:
                     {
                         Debug.Log("<color=#1BA>Moving Right</color>");
-                        _rigidbody.AddForce(new Vector3(-0.25f, 0, 0));
+                        _rigidbody.AddForce(new Vector3(-0.75f, 0, 0));
                     } break;
                 }
                 

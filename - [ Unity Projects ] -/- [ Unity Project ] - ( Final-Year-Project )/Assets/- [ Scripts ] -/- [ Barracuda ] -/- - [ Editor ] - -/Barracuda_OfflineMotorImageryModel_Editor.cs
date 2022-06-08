@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace _Barracuda
 {
+    // The custom inspector of the testing class Barracuda_OfflineMotorImageryModel, this is used to overwrite the inspector for this class. Allowing for the custom input of the data and testing of the networks output.
     [CustomEditor(typeof(Barracuda_OfflineMotorImageryModel))]
     public class Barracuda_OfflineMotorImageryModel_Editor : Editor
     {
@@ -25,6 +26,7 @@ namespace _Barracuda
         
         
         
+        // Redraws the inspector
         public override void OnInspectorGUI()
         {
             Barracuda_OfflineMotorImageryModel targetScript = (Barracuda_OfflineMotorImageryModel) target;
@@ -33,6 +35,8 @@ namespace _Barracuda
             if (Application.isPlaying)
             {
                 EditorGUILayout.Space(5);
+                
+                // Using the inputs from the inspector, runs the neural network and outputs its result.
                 if (GUILayout.Button("Calculate"))
                 {
                     targetScript.model.SetupModel();

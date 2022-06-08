@@ -8,18 +8,21 @@ from tensorflow.keras import layers
 from sklearn.preprocessing import LabelEncoder
 from tqdm import tqdm
 
-#%%########################
-#   - Clear Console -     #
-###########################
+#%%######################
+#   - Clear Console -   #
+#########################
+# Clears the console on starting the python program.
 print("\033[H\033[J") 
 
 
 
 
 
-#%%###########################
-#   - Global Variables -     #
-##############################
+#%%#########################
+#   - Global Variables -   #
+############################
+# Global variables used for generating and training the blink classificaiton neural network.
+# Path of the input data contianing blinks, used to train the network.
 _blinkingTrainingDataPath = "D:\\My Data\\[ EMG Data ]\\[ CSV Files ]\\[ Facial ]\\Blinking\\"
 _blinkingTrainingDataFileNames = []
 _validationBlinkingTrainingDataFileNames = [
@@ -30,6 +33,7 @@ _validationBlinkingTrainingDataFileNames = [
     "100"
     ]
  
+# Path of the input data contianing normal eye movement, used to train the network.
 _normalEyeMovementTrainingDataPath = "D:\\My Data\\[ EMG Data ]\\[ CSV Files ]\\[ Facial ]\\Normal Eye Movement\\"
 _normalEyeMovementTrainingDataFileNames = []
 _validationNormalEyeMovementTrainingDataFileNames = [
@@ -40,6 +44,7 @@ _validationNormalEyeMovementTrainingDataFileNames = [
     "100"
     ]
 
+# Model saving path, and name.
 _modelSavingDataPath = "D:\My Data\Tensorflow Models\\"
 _modelSavingName = "Blinking Model"
 
@@ -47,9 +52,14 @@ _modelSavingName = "Blinking Model"
 
 
 
-#%%####################
-#   - Functions -     #
-#######################
+#%%#########################
+#   - FUNCTION DEFINES -   #
+############################
+#%%###################
+#   - Read Files -   #
+######################
+# Opens the CSV files containing the EMG recordings, and combines them into a single list.
+# For each sample, a new element for the marker list is also added.
 def read_files(path, fileNames, markerType):
     combinedDataList = numpy.empty((0, 2)).astype(float)
     markers = numpy.empty((0), str)
@@ -75,11 +85,20 @@ def read_files(path, fileNames, markerType):
     return combinedDataList, markers
 
 
+#%%###########################
+#   - Encode Marker Data -   #
+##############################
+# Encodes the values within the marker list to an interger list.
 def encode_string_list(stringList):   
     encoder = LabelEncoder()        
     return encoder.fit_transform(stringList)
 
 
+#%%################################
+#   - Clean Data For Training -   #
+###################################
+# Removes a group of indexes from the start of each data set.
+# This is done to avoid the miscaricterisation of the data for non-blinks (at the start of a blink) to be considered a blink.
 def clean_data(dataList):
     indexesToRemove = []
     
@@ -90,6 +109,11 @@ def clean_data(dataList):
     return dataList
 
 
+#%%#########################
+#   - Build FFNN Model -   #
+############################
+# Builds the FFNN hyper parameters model architecture.
+# Used for against the search algorythms to find the highest accuracy networks.
 def build_model(hp):
     model = keras.Sequential()
     
@@ -119,6 +143,11 @@ def build_model(hp):
     return model
 
 
+#%%#####################################
+#   - Generate and Train The Model -   #
+########################################
+# Runs the training on the network for a series of possible networks using Keras Tuner.
+# The aim is to find the best network out of many.
 def generate_network(trainingDataArray, trainingMarkerArray, validationDataArray, validationMarkerArray):
     tuner = keras_tuner.BayesianOptimization(
          hypermodel = build_model,
@@ -144,6 +173,10 @@ def generate_network(trainingDataArray, trainingMarkerArray, validationDataArray
     return model
 
 
+#%%###################
+#   - Save Model -   #
+######################
+# Saves the model to a file, with the name and path supplied as a global variable.
 def save_model(model):
     model.save(f"{_modelSavingDataPath}{_modelSavingName}.h5")
     print(f"Data saved to '{_modelSavingDataPath}{_modelSavingName}.h5'")
@@ -152,9 +185,12 @@ def save_model(model):
 
 
 
-#%%##################
-#   - Program -     #
-#####################
+#%%################
+#   - Program -   #
+###################
+# Loads in a group of files, and cleans and encodes them for usage within a models training.
+# Generates the model for EMG based blink classification, and then trains it.
+# Writes the outputted network to a file for use later.
 for _i in range(1, 96):
     _normalEyeMovementTrainingDataFileNames.append(str(_i))
     _blinkingTrainingDataFileNames.append(str(_i))

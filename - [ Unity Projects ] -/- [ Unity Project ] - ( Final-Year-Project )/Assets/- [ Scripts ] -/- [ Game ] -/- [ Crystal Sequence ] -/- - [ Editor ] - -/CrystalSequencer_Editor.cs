@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace CrystalSequence
 {
+    // The custom inspector for the crystal sequencer, used to increment and decrement the active index of the sequence.
+    // Without needing to go through the Crystal game objects.
     [CustomEditor(typeof(CrystalSequencer))]
     public class CrystalSequencer_Editor : Editor
     {
@@ -11,7 +13,7 @@ namespace CrystalSequence
         private int _activeIndex;
         
         
-        
+        // Draws the inspector, includes two buttons. One for incrementing the index and the other for decrementing it.
         public override void OnInspectorGUI()
         {
             CrystalSequencer targetScript = (CrystalSequencer) target;
@@ -33,6 +35,7 @@ namespace CrystalSequence
             DrawBaseInspector();
         }
         
+        // Toggle for redrawing the base inspector of the GUI.
         private void DrawBaseInspector()
         {
             GUILayout.Space(10);

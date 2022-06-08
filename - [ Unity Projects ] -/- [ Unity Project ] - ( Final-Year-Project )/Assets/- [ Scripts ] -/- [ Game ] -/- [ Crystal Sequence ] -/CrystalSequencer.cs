@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 namespace CrystalSequence
 {
+    // The script used on the game object displaying the crystal sequence.
+    // Used to create the initial sequence and validate the inputs given in by the player.
     public class CrystalSequencer : MonoBehaviour
     {
         [SerializeField] private Transform _sequenceFolder;
@@ -33,7 +35,6 @@ namespace CrystalSequence
         private int _currentIndex;
         
 
-        
         private void Awake()
         {
             _transform = transform;
@@ -50,23 +51,26 @@ namespace CrystalSequence
 
 
 
-
+        // Function for correctness of the players input for the sequences next input.
         public bool IsCorrectColour(CrystalColours_Enum colour)
         {
             return (_sequence.Count > _currentIndex && colour == _sequence[_currentIndex]);
         }
         
+        // Checks if the sequence has been fully inputted.
         public bool IsEndOfSequence()
         {
             return (_sequence.Count <= _currentIndex);
         }
 
+        // Increments the index of the sequence.
         public void IncrementIndex()
         {
             LockElement(_currentIndex);
             _currentIndex++;
         }
 
+        // Unlocks all indices resetting the sequence.
         public void ResetSequence()
         {
             _currentIndex = 0;
@@ -80,7 +84,7 @@ namespace CrystalSequence
         
         
         
-        
+        // Generates a sequence of a specified length, then using a given Bezier curve spawns in game objects as a visual representation of this sequence.
         private void GenerateSequence()
         {
             _sequence.Clear();
@@ -117,6 +121,7 @@ namespace CrystalSequence
             }
         }
 
+        // Resets the visual side of sequence index, moves the game object that is used to hide the crystal colour away so that the crystal is once again visable.
         public void UnlockElement(int index)
         {
             if (_sequenceLockGameObjects.Count > index)
@@ -135,6 +140,7 @@ namespace CrystalSequence
             }
         }
         
+        // Scales up an elements lock game object so that it hides the colour of the indexes crystal. 
         public void LockElement(int index)
         {
             if (_sequenceLockGameObjects.Count > index)
@@ -153,6 +159,7 @@ namespace CrystalSequence
             }
         }
         
+        // Coroutine for moving and scaling the index lock down, used to make the transition between raising the lock smoother.
         private IEnumerator UnlockingCoroutine(Transform lockTransform)
         {
             Vector3 baseScale = lockTransform.localScale;
@@ -171,6 +178,7 @@ namespace CrystalSequence
             yield return null;
         }
         
+        // Coroutine for moving and scaling the index lock up, used to make the transition between lowering the lock smoother.
         private IEnumerator LockingCoroutine(Transform lockTransform)
         {
             Vector3 baseScale = lockTransform.localScale;
@@ -191,7 +199,7 @@ namespace CrystalSequence
         
         
         
-        
+        // Draws the position of the bezier curve used to spawn the crystals.
         private void OnDrawGizmos()
         {
             Vector3 position = transform.position;

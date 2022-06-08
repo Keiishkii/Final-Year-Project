@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+// Custom inspector script for the Player class,
 [CustomEditor(typeof(Player))]
 public class Player_Editor : Editor
 {

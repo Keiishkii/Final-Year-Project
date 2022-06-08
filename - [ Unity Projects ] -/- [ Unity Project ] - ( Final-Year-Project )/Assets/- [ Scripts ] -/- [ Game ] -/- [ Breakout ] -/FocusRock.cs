@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// The visual indicator for the players focus activation.
 public class FocusRock : MonoBehaviour
 {
     [SerializeField] private float maxWidth;
@@ -17,7 +18,7 @@ public class FocusRock : MonoBehaviour
     }
 
     
-    
+    // Linearly interpolates between the world space canvas's image from its current size to the desired size. 
     private void Update()
     {
         float targetSpeed = Mathf.Lerp(0, maxWidth, _player.focusActivation);

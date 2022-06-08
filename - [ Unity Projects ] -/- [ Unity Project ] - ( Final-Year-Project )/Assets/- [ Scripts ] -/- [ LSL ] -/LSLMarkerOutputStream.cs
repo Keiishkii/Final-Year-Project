@@ -5,6 +5,7 @@ using LSL;
 
 namespace _LSL
 {
+    // LSL output stream for generating marker data.
     public class LSLMarkerOutputStream : MonoBehaviour
     {
         [SerializeField] private string _streamName = "A";

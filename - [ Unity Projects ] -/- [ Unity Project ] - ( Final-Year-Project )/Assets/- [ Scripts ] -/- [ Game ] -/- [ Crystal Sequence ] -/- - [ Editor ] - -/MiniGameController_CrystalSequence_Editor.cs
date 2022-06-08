@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace CrystalSequence
 {
+    // Crystal Sequence Mini-game controllers custom editor, used as a way of inputting the colours of the index without needing to go through the crystal game objects.
+    // Using this allows for the testing of the sequences inputs as well as if the correct actions are taken inn the case of an incorrect input.
     [CustomEditor(typeof(MiniGameController_CrystalSequence))]
     public class MiniGameController_CrystalSequence_Editor : Editor
     {
         private bool _baseGUIToggle;
         
         
-        
+        // Draws the inspector with a list of buttons, each for the potential colours in the sequence.
         public override void OnInspectorGUI()
         {
             MiniGameController_CrystalSequence targetScript = (MiniGameController_CrystalSequence) target;
@@ -43,6 +45,7 @@ namespace CrystalSequence
             DrawBaseInspector();
         }
 
+        // Toggle for redrawing the base inspector of the GUI.
         private void DrawBaseInspector()
         {
             GUILayout.Space(10);

@@ -16,7 +16,9 @@ namespace _LSL
         private List<string> _markers;
         private int _index;
 
-
+        
+        // Unpacks and sorts offline bio-feedback data. 
+        // Following this, generates a regular LSL stream to write this data too.
         private void Start()
         {
             OpenDataCSV(out _sensorNames, out _data);
@@ -34,7 +36,7 @@ namespace _LSL
             _currentSample = new float[_sensorNames.Count];
         }
 
-
+        // Each frame, pushes the data from within the sampled CSV file onto the network, from the row with the same number as the index.
         private void Update()
         {
             if (_index < _data.Count)
@@ -67,7 +69,7 @@ namespace _LSL
         }
 
 
-
+        // Opens and unpacks the provided CSV file. 
         private void OpenDataCSV(out List<string> sensorNames, out List<List<float>> data)
         {
             string fileText = _csvFileData.text;
@@ -88,6 +90,7 @@ namespace _LSL
             }
         }
         
+        // Opens and unpacks marker data
         private void OpenMarkerCSV(out List<string> markers)
         {
             string fileText = _csvFileMarkers.text;

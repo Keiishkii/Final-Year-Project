@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace CrystalSequence
 {
+    // Custom inspector for the crystal class, used to activate a crystal without needing to use the in game interaction.
     [CustomEditor(typeof(Crystal))]
     public class Crystal_Editor : Editor
     {
         private bool _baseGUIToggle;
         
         
-        
+        // Draws the inspector with a button for calling the crystals activation function.
         public override void OnInspectorGUI()
         {
             Crystal targetScript = (Crystal) target;
@@ -26,6 +27,7 @@ namespace CrystalSequence
             DrawBaseInspector();
         }
 
+        // Toggle for redrawing the base inspector of the GUI.
         private void DrawBaseInspector()
         {
             GUILayout.Space(10);

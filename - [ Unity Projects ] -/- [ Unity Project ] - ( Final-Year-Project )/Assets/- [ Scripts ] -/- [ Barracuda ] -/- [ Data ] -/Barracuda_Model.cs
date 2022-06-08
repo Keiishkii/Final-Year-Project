@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace _Barracuda
 {
+    // A container class for holding the neural network related classes, 
     [Serializable]
     public class Barracuda_Model
     {
@@ -14,7 +15,7 @@ namespace _Barracuda
         public Prediction prediction;
 
 
-
+        // Generates the model and its workers.
         public void SetupModel()
         {
             _runtimeModel = ModelLoader.Load(model);
@@ -24,7 +25,7 @@ namespace _Barracuda
         }
 
 
-
+        // Cleans up the worker to avoid memory leaks
         private void OnDestroy()
         {
             worker?.Dispose();

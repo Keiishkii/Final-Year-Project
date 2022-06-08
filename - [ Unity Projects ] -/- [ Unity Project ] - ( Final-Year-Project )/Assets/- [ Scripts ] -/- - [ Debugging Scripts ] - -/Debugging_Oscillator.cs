@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+// Moves and object back and forth between a specific position on game start. Used as a way of continuously moving a game object when the position data is streamed over an LSL network. 
 public class Debugging_Oscillator : MonoBehaviour
 {
     private Transform _transform;
@@ -21,6 +22,7 @@ public class Debugging_Oscillator : MonoBehaviour
         _transform = transform;
     }
 
+    // Generates the random offsets used within the equations in update.
     void Start()
     {
         _basePosition = _transform.position;
@@ -39,6 +41,7 @@ public class Debugging_Oscillator : MonoBehaviour
         SetPosition();
     }
 
+    // Moves the game objects position each frame based on the outputs of a simple equation. 
     private void SetPosition()
     {
         float timeSinceLevelLoad = _timeScale * Time.timeSinceLevelLoad;

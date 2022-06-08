@@ -6,6 +6,8 @@ using LSL;
 
 namespace _LSL
 {
+    // Reads in position data from across and LSL stream and matches the game objects position to that of the networks input.
+    // With this objects can sync within a game.
     public class LSLInputStream_PositionData : LSLInput<float>
     {
         private Transform _transform;
@@ -18,7 +20,7 @@ namespace _LSL
         }
 
 
-
+        // Reads in the values from the LSL stream and writes them to the game objects position.
         protected override void Update()
         {
             if (_streamInlet == null)
@@ -67,6 +69,7 @@ namespace _LSL
             return _sample;
         }
 
+        // Writes values to the position of this game object.
         private void Process(float[] newSample, double timeStamp)
         {
             if (newSample.Length >= 3)

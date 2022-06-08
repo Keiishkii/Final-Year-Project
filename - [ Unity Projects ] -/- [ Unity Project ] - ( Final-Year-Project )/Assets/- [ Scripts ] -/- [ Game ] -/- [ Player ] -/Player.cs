@@ -9,15 +9,19 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
+// The control class for the player Avatar, this class manages the state of the player and stores all data regarding it.
+// Such as the neural networks used to perform the EEG and EMG classification.
 public class Player : Player_Interface
 {
+    // Input actions, for mouse control
     #region Interactions
-        [SerializeField] private InputActionReference _mousePositionInputAction;
+    [SerializeField] private InputActionReference _mousePositionInputAction;
         public InputActionReference mouseLeftClickInputAction;
         public InputActionReference mouseRightClickInputAction;
     #endregion
     
     [Space]
+    // The neural networks and the LSL input stream components used for them
     #region NeuralNetworks
         public Barracuda_Model leftHandControlModel;
         public Barracuda_Model rightHandControlModel;
@@ -116,7 +120,7 @@ public class Player : Player_Interface
 
 
 
-
+    // Calls the setup function for the neural networks. Generating there worker and creating the prediction struct for later use.
     private void SetupNeuralNetworkModels()
     {
         leftHandControlModel.SetupModel();
@@ -126,11 +130,13 @@ public class Player : Player_Interface
         blinkingModel.SetupModel();
     }
     
+    // Adds an action subscription for the mouse delta update event
     private void SubscribeToInputEvents()
     {
         _mousePositionInputAction.action.started += OnMouseDeltaUpdate;
     }
     
+    // Removes the action subscription from the mouse delta update event
     private void UnsubscribeToInputEvents()
     {
         _mousePositionInputAction.action.started -= OnMouseDeltaUpdate;
@@ -142,6 +148,7 @@ public class Player : Player_Interface
         Cursor.visible = false;
     }
     
+    // Parametric equation for generating player look rotations.
     private void OnMouseDeltaUpdate(InputAction.CallbackContext value)
     {
         Vector2 mouseInput = value.ReadValue<Vector2>();
@@ -169,6 +176,7 @@ public class Player : Player_Interface
         }
     }
 
+    // Changes the avatars IK constraints based on the inputs of the player. This can be driven through clicking or motor imagery
     private void UpdateAvatar()
     {
         _avatarTransform.rotation = Quaternion.Lerp(_avatarTransform.rotation, _desiredAvatarRotation, 0.05f);
@@ -191,6 +199,10 @@ public class Player : Player_Interface
         _leftArmIKTarget.rotation = _transform.rotation * quaternion.Euler(_leftHandIKRotationOffset * Mathf.Deg2Rad);
     }
 
+    // On getting a high enough value for accuracy, a ray cast is generated from the players head along their look vector.
+    // If this collides with anything containing a Interactable_Interface component or its children, the Activate function is called.
+    // This function also manages the activation bounds of each arm, only activating with a value of 0.9, and then resetting with a value of 0.3.
+    // This is to stop any unintentional inputs from occuring when using inaccurate input methods like motor imagery.
     private void InteractionTest()
     {
         if (_allowLeftInput && leftActivation > 0.9f)
@@ -230,7 +242,8 @@ public class Player : Player_Interface
         }
     }
 
-    private float blinkActivation = 0;
+    // Uses a neural network to check if the player is currently blinking
+    // Done to avoid any interference during the EEG.
     private void ProcessPlayerBlinkState()
     {
         List<float[]> samples = lslInputStream_FacialEMG.Samples;

@@ -4,19 +4,20 @@ using _Barracuda;
 using Unity.Barracuda;
 using UnityEngine;
 
+// Player state used during the Crystal Sequence mini-game.
 public class ControlState_CrystalSequence : ControlState_Interface
 {
     private List<float[]> _activeSample = new List<float[]>();
     
     
-    
+    // Starts the cooldown for how long until the sampling begins for arm movement.
     public override void OnStateEnter(Player player)
     {
         _waiting = true;
         player.StartCoroutine(InteractionCooldown());
     }
     
-
+    // Each frame EEG data from the LSL stream is sampled and given to both the left and right handed networks to determine what the current state of the players motor imagery is.
     public override void OnStateUpdate(Player player)
     {
         if (!player.blinking)
@@ -46,6 +47,7 @@ public class ControlState_CrystalSequence : ControlState_Interface
         }
     }
 
+    // Processes the EEG using the neural network stored in player to set the left hands arm activation.
     private void ProcessLeftHandState(ref Player player, float[] sampleSet)
     {
         Barracuda_Model model = player.leftHandControlModel;
@@ -70,6 +72,7 @@ public class ControlState_CrystalSequence : ControlState_Interface
         outputTensor.Dispose();
     }
     
+    // Processes the EEG using the neural network stored in player to set the right hands arm activation.
     private void ProcessRightHandState(ref Player player, float[] sampleSet)
     {
         Barracuda_Model model = player.rightHandControlModel;

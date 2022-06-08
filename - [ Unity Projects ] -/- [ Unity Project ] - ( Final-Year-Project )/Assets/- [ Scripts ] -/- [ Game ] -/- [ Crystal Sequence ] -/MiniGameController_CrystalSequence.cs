@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 namespace CrystalSequence
 {
+    // The mini-game controller for the Crystal Sequence mini-game.
+    // This is used to spawn in the game objects used within the game
     public class MiniGameController_CrystalSequence : MonoBehaviour
     {
         [SerializeField] private Transform _crystalFolder;
@@ -43,7 +45,7 @@ namespace CrystalSequence
         }
 
         
-        
+        // Spawns in all objects relating to the mini-games flow, the crystals are spawned in a circle around the player.
         private void Start()
         {
             Vector3 center = new Vector3(0, _crystalFloatHeight, 0);
@@ -71,7 +73,9 @@ namespace CrystalSequence
         }
 
 
-
+        // On the activation of a crystal this function is called.
+        // This test whether the colour chosen was correct and if so increments the index within the crystal sequencer script.
+        // Following this, on the completion of the sequence the function call EndMiniGame.
         public void ActivatedCrystal(CrystalColours_Enum colour)
         {
             if (_crystalSequencerScript.IsCorrectColour(colour))
@@ -88,6 +92,7 @@ namespace CrystalSequence
             }
         }
 
+        // Destroys all game related objects and spawns the completion text and return tablet.
         private void EndMiniGame()
         {
             Destroy(_sequenceTablet);
@@ -102,7 +107,7 @@ namespace CrystalSequence
         }
         
         
-
+        // Renders the position of the Crystal Sequencer and the position of the crystals as Gizmos
         private void OnDrawGizmos()
         {
             float incrementValue = (Mathf.PI * 2) / (_crystalPrefabs.Length + 1);

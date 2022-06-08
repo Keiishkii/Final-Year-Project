@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+// Interactable game object component that loads the scene given to it from within the unity inspector.
+// On loading this scene, also sets the players control state back to its basic value.
 public class ReturnTablet : Interactable_Interface
 {
     [SerializeField] private string _sceneName;

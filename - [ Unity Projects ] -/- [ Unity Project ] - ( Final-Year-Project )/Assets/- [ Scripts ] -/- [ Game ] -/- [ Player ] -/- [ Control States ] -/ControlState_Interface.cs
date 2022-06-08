@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Interface class for the player states.
 public abstract class ControlState_Interface
 {
     protected bool _waiting;

@@ -6,13 +6,16 @@ using UnityEngine;
 
 namespace _LSL
 {
+    // The LSLInputStream_FloatArray class is a child of LSLInput, this class is designed to access LSL streams broadcasting float data in there channels.
+    // On doing so, this class will collect and store the data sent via the stream, in a public read only function. 
     public class LSLInputStream_FloatArray : LSLInput<float>
     {
         private readonly List<float[]> _samples = new List<float[]>();
         public List<float[]> Samples => _samples;
 
 
-
+        // Continuously searches for a stream that matches the arguments provided within the Unity inspector.
+        // On finding a matching stream, begins pulling the data each frame and storing it in the samples list.
         protected override void Update()
         {
             if (_streamInlet == null)
@@ -59,6 +62,7 @@ namespace _LSL
             }
         }
 
+        // Adds the samples to the sample list.
         private void Process(float[] newSample, double timeStamp)
         {
             _samples.Add(newSample);

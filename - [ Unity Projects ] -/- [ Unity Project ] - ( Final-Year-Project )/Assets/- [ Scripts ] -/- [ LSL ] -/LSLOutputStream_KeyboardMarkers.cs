@@ -11,14 +11,14 @@ namespace _LSL
     {
         private InputActions _inputActions;
 
-
+        // Subscripts input events to the network.
         private void Awake()
         {
             _inputActions = new InputActions();
             _inputActions.Keyboard.Left.performed += ctx => PushOutput();
         }
 
-
+        // Generates a irregular LSL stream to push marker data to the network.
         private void Start()
         {
             StreamInfo streamInfo = new StreamInfo(_streamName, _streamType, 1, 0, channel_format_t.cf_string);
@@ -30,17 +30,19 @@ namespace _LSL
             _currentSample = new string[1];
         }
 
+        // Enables keyboard inputs.
         private void OnEnable()
         {
             _inputActions.Enable();
         }
 
+        // Disables keyboard inputs from affecting the streams.
         private void OnDisable()
         {
             _inputActions.Disable();
         }
 
-
+        // Pushes the marker data to the network.
         private void PushOutput()
         {
             _currentSample[0] = "Hello";

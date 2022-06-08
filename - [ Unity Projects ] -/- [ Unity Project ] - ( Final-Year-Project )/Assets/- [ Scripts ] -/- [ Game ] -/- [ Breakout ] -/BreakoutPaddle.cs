@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Component script for the paddle game object within the Breakout mini-game
+// Used to bounce the ball into blocks
 public class BreakoutPaddle : MonoBehaviour
 {
     [SerializeField] private Vector3 _size;
@@ -36,7 +38,7 @@ public class BreakoutPaddle : MonoBehaviour
 
 
 
-
+    // Checks for inputs and the calls the movement functions
     private void Update()
     {
         if (_moveLeft.action.ReadValue<float>() > 0) MoveLeft();
@@ -46,7 +48,7 @@ public class BreakoutPaddle : MonoBehaviour
     
     
     
-    
+    // Moves the paddle left, checks while doing so if the paddle with leave the game bounds.
     private void MoveLeft()
     {
         float xPosition = Mathf.Clamp(_transform.position.x - (Time.deltaTime * _movementSpeed), _gameBounds.min.x, _gameBounds.max.x);
@@ -59,6 +61,7 @@ public class BreakoutPaddle : MonoBehaviour
         _hoverScript.baseRotation = rotation;
     }
 
+    // Moves the paddle right, checks while doing so if the paddle with leave the game bounds.
     private void MoveRight()
     {
         float xPosition = Mathf.Clamp(_transform.position.x + (Time.deltaTime * _movementSpeed), _gameBounds.min.x, _gameBounds.max.x);

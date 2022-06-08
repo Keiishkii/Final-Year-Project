@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// A debug script for testing the reflection angle of a traveling object against a plane
 public class Debug_MathsTest : MonoBehaviour
 {
     [SerializeField] private Transform _reflectorTransform;
     [SerializeField] private Vector3 _velocity;
 
-
+    // Renders lines to visually demonstrate the maths being applied.  
     private void OnDrawGizmos()
     {
         if (_reflectorTransform)
